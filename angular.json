@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FSD-Stackathon-Frontend": {
+    "fsd-stackathon-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/FSD-Stackathon-Frontend",
+            "outputPath": "dist/fsd-stackathon-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FSD-Stackathon-Frontend:build"
+            "browserTarget": "fsd-stackathon-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "FSD-Stackathon-Frontend:build:production"
+              "browserTarget": "fsd-stackathon-frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FSD-Stackathon-Frontend:build"
+            "browserTarget": "fsd-stackathon-frontend:build"
           }
         },
         "test": {
@@ -114,15 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "FSD-Stackathon-Frontend:serve"
+            "devServerTarget": "fsd-stackathon-frontend:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "FSD-Stackathon-Frontend:serve:production"
+              "devServerTarget": "fsd-stackathon-frontend:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "FSD-Stackathon-Frontend"
+  "defaultProject": "fsd-stackathon-frontend"
 }
