@@ -4,6 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { GeneralModule } from './general/general.module';
+import { ManagementModule } from './management/management.module';
+import { SellingModule } from './selling/selling.module';
+import { ShoppingModule } from './shopping/shopping.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +15,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
+    GeneralModule,
+    ManagementModule,
+    SellingModule,
+    ShoppingModule,
     AppRoutingModule,
     NgbModule
   ],

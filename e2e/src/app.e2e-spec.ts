@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('FSD-Stackathon-Frontend app is running!');
+    expect(page.getTitleText()).toEqual('eMart app is running!');
   });
 
   afterEach(async () => {
