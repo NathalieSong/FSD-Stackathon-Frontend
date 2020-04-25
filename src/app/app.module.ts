@@ -4,18 +4,17 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GeneralModule } from './general/general.module';
-import { ManagementModule } from './management/management.module';
-import { SellingModule } from './selling/selling.module';
-import { ShoppingModule } from './shopping/shopping.module';
+import { PageNotFoundComponent } from './general/page-not-found/page-not-found.component';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
+    PageNotFoundComponent,
     AppComponent
   ],
   imports: [
     BrowserModule,
-    GeneralModule,
+    AuthModule,
     AppRoutingModule,
     NgbModule
   ],
