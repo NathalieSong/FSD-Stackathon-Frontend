@@ -16,9 +16,6 @@ import { ShoppingModule } from './shopping/shopping.module';
   imports: [
     BrowserModule,
     GeneralModule,
-    ManagementModule,
-    SellingModule,
-    ShoppingModule,
     AppRoutingModule,
     NgbModule
   ],
