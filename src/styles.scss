@@ -1,2 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+.text-header {
+    font-size: 30px;
+    font-weight: bolder;
+    padding-bottom: 15px;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
