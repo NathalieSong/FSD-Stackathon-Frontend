@@ -3,7 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { ShoppingComponent } from './shopping.component';
 import { PurchaseHistoryComponent } from './purchase-history/purchase-history.component';
 import { ShoppingAuthGuard } from '../general/guards/shopping-auth.guard';
-import { ListOfItemsComponent } from './list-of-items/list-of-items.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { SearchResultComponent } from './search-result/search-result.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 const shoppingRoutes: Routes = [
   {
@@ -12,7 +14,15 @@ const shoppingRoutes: Routes = [
     children: [
       {
         path: '',
-        component: ListOfItemsComponent
+        component: HomepageComponent
+      },
+      {
+        path: 'item-detail/:itemId',
+        component: ItemDetailComponent
+      },
+      {
+        path: 'search-result',
+        component: SearchResultComponent
       },
       {
         path: 'purchase-history',

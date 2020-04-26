@@ -5,16 +5,24 @@ import { PurchaseHistoryComponent } from './purchase-history/purchase-history.co
 import { ListOfItemsComponent } from './list-of-items/list-of-items.component';
 import { ShoppingRoutingModule } from './shopping-routing.module';
 import { ShoppingService } from './shopping.service';
+import { HomepageComponent } from './homepage/homepage.component';
+import { SearchResultComponent } from './search-result/search-result.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
     ShoppingComponent,
     PurchaseHistoryComponent,
-    ListOfItemsComponent
+    ListOfItemsComponent,
+    HomepageComponent,
+    SearchResultComponent,
+    ItemDetailComponent
   ],
   imports: [
     CommonModule,
-    ShoppingRoutingModule
+    ShoppingRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     ShoppingService

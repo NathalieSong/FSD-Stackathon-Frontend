@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Item } from 'src/app/general/models/item';
 
 @Component({
   selector: 'app-list-of-items',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list-of-items.component.scss']
 })
 export class ListOfItemsComponent implements OnInit {
+  @Input() items: Array<Item> = [];
 
   constructor() { }
 

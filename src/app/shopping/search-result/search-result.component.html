@@ -1,0 +1,23 @@
+<div class="container-fluid">
+    <div class="row no-gutters mb-3">
+        <div>
+            Results for "mobile"
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="d-flex">
+            <label class="align-self-center mb-0" for="startprice">Price:</label>
+            <input id="startprice" type="text" class="form-control mx-2" placeholder="Start Price" [formControl]="startprice">
+            <label class="align-self-center mb-0" for="endprice">to</label>
+            <input id="endprice" type="text" class="form-control mx-2" placeholder="End Price" [formControl]="endprice">
+            <label class="align-self-center mb-0" for="manufacturer">Manufacturer:</label>
+            <input id="manufacturer" type="text" class="form-control mx-2" placeholder="Manufacturer" [formControl]="manufacturer">
+            <button id="search-icon" type="button" class="btn btn-outline-dark" (click)="onClickSearch()">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <app-list-of-items [items]="shopService.items"></app-list-of-items>
+    </div>
+</div>

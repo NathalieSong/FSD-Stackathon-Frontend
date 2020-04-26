@@ -5,9 +5,9 @@
                 <img src="../../assets/images/emart_logo.svg" alt="emart_logo">
             </a>
             <div class="input-group my-2 ml-5 w-50">
-                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-icon">
+                <input type="text" class="form-control" placeholder="Search" [formControl]="searchText" aria-label="Search" aria-describedby="search-icon">
                 <div class="input-group-append">
-                  <button id="search-icon" type="button" class="btn btn-outline-dark">
+                  <button id="search-icon" type="button" class="btn btn-outline-dark" (click)="onClickSearch()">
                     <i class="fa fa-search"></i>
                   </button>
                 </div>
@@ -26,6 +26,6 @@
         </div>
     </div>
 </div>
-<div class="shopping-px-8rem shopping-py-3rem">
+<div class="shopping-px-8rem">
     <router-outlet></router-outlet>
 </div>

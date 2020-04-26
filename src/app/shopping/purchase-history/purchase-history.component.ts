@@ -8,7 +8,7 @@ import { ShoppingService } from '../shopping.service';
   styleUrls: ['./purchase-history.component.scss']
 })
 export class PurchaseHistoryComponent implements OnInit {
-  items: Array<PurchaseHistoryItem> = [];
+  purchaseItems: Array<PurchaseHistoryItem> = [];
 
   constructor(private shopService: ShoppingService) { }
 
@@ -17,7 +17,7 @@ export class PurchaseHistoryComponent implements OnInit {
   }
 
   getItems() {
-    this.items = this.shopService.getPurchaseHistoryList();
+    this.purchaseItems = this.shopService.getPurchaseHistoryList();
   }
 
 }
