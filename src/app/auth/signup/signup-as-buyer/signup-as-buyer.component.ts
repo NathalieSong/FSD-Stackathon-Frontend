@@ -64,5 +64,4 @@ export class SignupAsBuyerComponent implements OnInit {
     buyer.mobile = this.mobile.value;
     return buyer;
   }
-
 }

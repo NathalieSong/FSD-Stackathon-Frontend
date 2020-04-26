@@ -2,7 +2,7 @@ export class Admin {
     id = '';
     username = '';
     password = '';
-    emailid = '';
+    email = '';
     contactNumber = '';
     createdDate: Date;
 }

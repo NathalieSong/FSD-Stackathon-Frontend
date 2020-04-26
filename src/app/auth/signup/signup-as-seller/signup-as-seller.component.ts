@@ -76,5 +76,4 @@ export class SignupAsSellerComponent implements OnInit {
     seller.GSTIN = Number(this.gstin.value);
     return seller;
   }
-
 }
