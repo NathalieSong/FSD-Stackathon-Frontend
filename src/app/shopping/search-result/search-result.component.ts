@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Item } from 'src/app/general/models/item';
 import { ShoppingService } from '../shopping.service';
 
 @Component({
