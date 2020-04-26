@@ -42,7 +42,7 @@
             <div *ngIf="contactnumber.invalid && (contactnumber.dirty || contactnumber.touched)" class="alert alert-danger" role="alert">
                 <div *ngIf="contactnumber.errors?.required">Contact Number is required</div>
             </div>
-            <button class="btn btn-outline-primary w-100 my-3" type="submit" [disabled]="!signupForm.valid">Sign Up As a Admin</button>
+            <button class="btn btn-outline-dark w-100 my-3" type="submit" [disabled]="!signupForm.valid">Sign Up As a Admin</button>
         </form>
     </div>
     <div class="row no-gutters justify-content-end">

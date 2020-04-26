@@ -1,2 +1,31 @@
-<p>shopping works!</p>
-<router-outlet></router-outlet>
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-flex justify-content-between flex-wrap px-4 py-4 w-100">
+            <a routerLink="/shopping" class="ml-4">
+                <img src="../../assets/images/emart_logo.svg" alt="emart_logo">
+            </a>
+            <div class="input-group my-2 ml-5 w-50">
+                <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-icon">
+                <div class="input-group-append">
+                  <button id="search-icon" type="button" class="btn btn-outline-dark">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+            </div>
+            <div class="align-self-center d-flex">
+                <div class="px-2">
+                    <a routerLink="/auth" class="text-dark">Sign In/Out</a>
+                </div>
+                <div class="px-2">
+                    <a routerLink="/shopping/purchase-history" class="text-dark">Purchase History</a>
+                </div>
+                <div class="px-2">
+                    <a routerLink="/auth" class="text-dark">Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shopping-px-8rem">
+    <router-outlet></router-outlet>
+</div>
