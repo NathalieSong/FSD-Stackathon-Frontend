@@ -12,15 +12,13 @@ import { AuthService } from '../auth.service';
 export class SigninComponent implements OnInit {
   roles = UserRole;
   signinForm = this.fb.group({
-    role: ['buyer', Validators.required],
+    role: ['buyer'],
     username: ['', Validators.required],
     password: ['', Validators.required]
   });
 
   get role() { return this.signinForm.get('role'); }
-
   get username() { return this.signinForm.get('username'); }
-
   get password() { return this.signinForm.get('password'); }
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
@@ -28,7 +26,22 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signIn() {
+  onSubmit() {
+    this.doTrimOfForm();
+    if (this.signinForm.valid) {
+      this.signin();
+    }
+  }
+
+  doTrimOfForm() {
+    this.signinForm.setValue({
+      role: this.role.value,
+      username: this.username.value.trim(),
+      password: this.password.value.trim()
+    });
+  }
+
+  signin() {
     switch (this.role.value) {
       case this.roles.BUYER: {
         this.authService.signinAsBuyer(this.username.value, this.password.value);

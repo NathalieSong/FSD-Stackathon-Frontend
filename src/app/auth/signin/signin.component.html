@@ -3,7 +3,7 @@
         Sign-In
     </div>
     <div class="row no-gutters">
-        <form [formGroup]="signinForm" (ngSubmit)="signIn()">
+        <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class="w-100">
             <label class="w-100">
                 <div class="pb-1">Your role</div>
                 <select class="form-control w-100" formControlName="role">
