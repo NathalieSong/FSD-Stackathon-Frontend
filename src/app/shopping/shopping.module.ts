@@ -9,6 +9,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ItemDetailComponent } from './item-detail/item-detail.component';
     ListOfItemsComponent,
     HomepageComponent,
     SearchResultComponent,
-    ItemDetailComponent
+    ItemDetailComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,

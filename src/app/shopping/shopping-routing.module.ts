@@ -6,6 +6,7 @@ import { ShoppingAuthGuard } from '../general/guards/shopping-auth.guard';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
+import { CartComponent } from './cart/cart.component';
 
 const shoppingRoutes: Routes = [
   {
@@ -23,6 +24,11 @@ const shoppingRoutes: Routes = [
       {
         path: 'search-result',
         component: SearchResultComponent
+      },
+      {
+        path: 'cart',
+        component: CartComponent,
+        canActivate: [ShoppingAuthGuard]
       },
       {
         path: 'purchase-history',
