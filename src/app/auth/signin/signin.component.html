@@ -5,6 +5,14 @@
     <div class="row no-gutters">
         <form [formGroup]="signinForm" (ngSubmit)="signIn()">
             <label class="w-100">
+                <div class="pb-1">Your role</div>
+                <select class="form-control w-100" formControlName="role">
+                    <option value="{{roles.BUYER}}">Buyer</option>
+                    <option value="{{roles.SELLER}}">Seller</option>
+                    <option value="{{roles.ADMIN}}">Admin</option>
+                </select>
+            </label>
+            <label class="w-100">
                 <div class="pb-1">Username</div>
                 <input id="username" type="text" class="form-control" placeholder="Username" formControlName="username" required>
             </label>

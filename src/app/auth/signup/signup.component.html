@@ -5,7 +5,7 @@
     <div class="row no-gutters">
         <label class="w-100">
             <div class="pb-1">Which role you want to become?</div>
-            <select class="btn border-secondary w-100" (change)="onChangeRole($event.target.value)">
+            <select class="form-control w-100" (change)="onChangeRole($event.target.value)">
                 <option value="{{roles.BUYER}}">Buyer</option>
                 <option value="{{roles.SELLER}}">Seller</option>
                 <option value="{{roles.ADMIN}}">Admin</option>

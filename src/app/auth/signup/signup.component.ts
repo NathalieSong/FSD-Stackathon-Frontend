@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
-    switch(this.role) {
+    switch (this.role) {
       case this.roles.BUYER: {
         this.router.navigate(['/auth/signup/buyer']);
         break;
