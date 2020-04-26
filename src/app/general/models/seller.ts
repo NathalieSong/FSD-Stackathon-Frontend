@@ -6,7 +6,7 @@ export class Seller {
     companyDescription = '';
     GSTIN: number;
     address = '';
-    emailid = '';
+    email = '';
     contactNumber = '';
     createdDate: Date;
     active = true;
