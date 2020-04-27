@@ -30,7 +30,7 @@
             </div>
             <label class="w-100">
                 <div class="pb-1">Email</div>
-                <input id="email" type="text" class="form-control" placeholder="example@xx.com" formControlName="email" required>
+                <input id="email" type="email" class="form-control" placeholder="example@xx.com" formControlName="email" required>
             </label>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger" role="alert">
                 <div *ngIf="email.errors?.required">Email is required</div>

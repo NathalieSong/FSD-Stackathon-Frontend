@@ -43,4 +43,4 @@ const shoppingRoutes: Routes = [
   imports: [RouterModule.forChild(shoppingRoutes)],
   exports: [RouterModule]
 })
-export class ShoppingRoutingModule { };
+export class ShoppingRoutingModule { }

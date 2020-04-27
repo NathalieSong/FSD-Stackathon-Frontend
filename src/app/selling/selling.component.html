@@ -1,1 +1,28 @@
-<p>selling works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-flex justify-content-between flex-wrap px-4 py-4 w-100">
+            <a routerLink="/selling" class="ml-4">
+                <img src="../../assets/images/emart_logo.svg" alt="emart_logo">
+            </a>
+            <div class="align-self-center d-flex">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a routerLink="/auth" class="nav-link text-dark">Sign In/Out</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/selling/view-stock" class="nav-link text-dark">View</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/selling/add-item" class="nav-link text-dark">Add</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/selling/report" class="nav-link text-dark">Report</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="selling-px-8rem">
+    <router-outlet></router-outlet>
+</div>
