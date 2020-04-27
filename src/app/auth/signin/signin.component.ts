@@ -53,11 +53,6 @@ export class SigninComponent implements OnInit {
         this.router.navigate(['/selling']);
         break;
       }
-      case this.roles.ADMIN: {
-        this.authService.signinAsAdmin(this.username.value, this.password.value);
-        this.router.navigate(['/management']);
-        break;
-      }
     }
   }
 

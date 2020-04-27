@@ -30,10 +30,6 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['/auth/signup/seller']);
         break;
       }
-      case this.roles.ADMIN: {
-        this.router.navigate(['/auth/signup/admin']);
-        break;
-      }
     }
   }
 

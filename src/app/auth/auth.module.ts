@@ -4,7 +4,6 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { SignupAsBuyerComponent } from './signup/signup-as-buyer/signup-as-buyer.component';
 import { SignupAsSellerComponent } from './signup/signup-as-seller/signup-as-seller.component';
-import { SignupAsAdminComponent } from './signup/signup-as-admin/signup-as-admin.component';
 import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +14,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     SignupComponent,
     SignupAsBuyerComponent,
     SignupAsSellerComponent,
-    SignupAsAdminComponent,
     AuthComponent
   ],
   imports: [
