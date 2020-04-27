@@ -7,7 +7,7 @@ import { Item } from 'src/app/general/models/item';
   styleUrls: ['./list-of-items.component.scss']
 })
 export class ListOfItemsComponent implements OnInit {
-  @Input() items: Array<Item> = [];
+  @Input() items: Item[] = [];
 
   constructor() { }
 

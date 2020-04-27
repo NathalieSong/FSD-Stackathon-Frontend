@@ -8,7 +8,7 @@ import { ShoppingService } from '../shopping.service';
   styleUrls: ['./purchase-history.component.scss']
 })
 export class PurchaseHistoryComponent implements OnInit {
-  purchaseItems: Array<PurchaseHistoryItem> = [];
+  purchaseItems: PurchaseHistoryItem[] = [];
 
   constructor(private shopService: ShoppingService) { }
 

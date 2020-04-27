@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+  errorSignin = false;
   roles = UserRole;
   signinForm = this.fb.group({
     role: ['buyer'],
@@ -44,8 +45,19 @@ export class SigninComponent implements OnInit {
   signin() {
     switch (this.role.value) {
       case this.roles.BUYER: {
-        this.authService.signinAsBuyer(this.username.value, this.password.value);
-        this.router.navigate(['/shopping']);
+        const that = this;
+        this.authService.signinAsBuyer(this.username.value, this.password.value)
+          .subscribe({
+            next(buyers) {
+              if (buyers.length) {
+                that.errorSignin = false;
+                that.router.navigate(['/shopping']);
+              } else {
+                that.errorSignin = true;
+              }
+            },
+            error(err) { that.errorSignin = true; }
+          });
         break;
       }
       case this.roles.SELLER: {

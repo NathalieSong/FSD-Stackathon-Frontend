@@ -1,29 +1,36 @@
 import { Injectable } from '@angular/core';
 import { PurchaseHistoryItem } from '../general/models/purchase-history-item';
 import { Item } from '../general/models/item';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class ShoppingService {
-  items: Array<Item> = [];
+  items: Item[] = [];
 
   constructor() { }
 
-  getPurchaseHistoryList(): Array<PurchaseHistoryItem> {
+  getPurchaseHistoryList(): PurchaseHistoryItem[] {
     return [];
   }
 
-  getItems(): Array<Item> {
+  getItems(): Item[] {
     this.items = [];
     return this.items;
   }
 
-  getItemsByText(text: string): Array<Item> {
+  getItemsByText(text: string): Item[] {
     this.items = [];
     return this.items;
   }
 
-  getItemsByFilter(): Array<Item> {
+  getItemsByFilter(): Item[] {
     this.items = [];
     return this.items;
+  }
+
+  private handleError<T>(result?: T) {
+    return (error: any): Observable<T> => {
+      return of(result as T);
+    };
   }
 }

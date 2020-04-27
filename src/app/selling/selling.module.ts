@@ -8,6 +8,7 @@ import { EditItemComponent } from './edit-item/edit-item.component';
 import { ReportComponent } from './report/report.component';
 import { SellingService } from './selling.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     SellingRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     SellingService
