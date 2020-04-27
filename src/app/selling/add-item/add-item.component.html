@@ -1,1 +1,73 @@
-<p>add-item works!</p>
+<div class="container-fluid">
+    <div class="row no-gutters w-100 text-header">
+        Add Item
+    </div>
+    <div class="row no-gutters">
+        <div class="border bg-white py-4 px-5">
+            <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="category">Category</label>
+                        <select id="category" class="form-control text-secondary" formControlName="categoryId">
+                            <option>Electronic</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="subcategory">SubCategory</label>
+                        <select id="subcategory" class="form-control text-secondary" formControlName="subCategoryId">
+                            <option>Mobile</option>
+                        </select>
+                    </div>
+                    <div class="col-10 mt-2">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" class="form-control text-secondary" placeholder="Name" formControlName="name">
+                    </div>
+                    <div class="col-2 mt-2">
+                        <label for="price">Price</label>
+                        <input id="price" type="text" class="form-control text-secondary" placeholder="Price" formControlName="price">
+                    </div>
+                    <div class="col-10 mt-2">
+                        <label for="manufacturer">Manufacturer</label>
+                        <input id="manufacturer" type="text" class="form-control text-secondary" placeholder="Manufacturer" formControlName="manufacturer">
+                    </div>
+                    <div class="col-2 mt-2">
+                        <label for="instock">No. in Stock</label>
+                        <select id="instock" class="form-control w-100 text-secondary" formControlName="stockNumber">
+                            <option>1</option>
+                        </select>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <label for="description">Description</label>
+                        <textarea id="description" class="form-control text-secondary" placeholder="Description" formControlName="description"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 mt-2">
+                        <button type="button" class="btn btn-outline-dark">Upload Picture</button>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <img src="../../../assets/images/emart_logo.svg" alt="item_img">
+                    </div>
+                </div>
+                <div class="row no-gutters mt-3">
+                    <div class="col-12 border-bottom border-secondary pb-1">Specifications</div>
+                    <div class="col-12 mt-2">
+                        <label for="specwidth">Width</label>
+                        <input id="specwidth" type="text" class="form-control text-secondary">
+                    </div>
+                    <div class="col-12 mt-2">
+                        <label for="specheight">Height</label>
+                        <input id="specheight" type="text" class="form-control text-secondary">
+                    </div>
+                    <div class="col-12 mt-2">
+                        <label for="specweight">Weight</label>
+                        <input id="specweight" type="text" class="form-control text-secondary">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end fixed-bottom border border-bottom-0 add-item-height add-item-mx-8rem p-3 bg-white shadow rounded">
+                    <button type="submit" class="btn btn-outline-dark add-btn-width">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
