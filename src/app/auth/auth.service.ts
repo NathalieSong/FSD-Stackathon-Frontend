@@ -14,6 +14,7 @@ export class AuthService {
   isSeller = false;
 
   private buyersUrl = 'api/buyers';
+  private sellerUrl = 'api/sellers';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -34,7 +35,10 @@ export class AuthService {
   }
 
   signinAsSeller(username: string, password: string) {
-    console.log('Seller ' + username + ' signed in.');
+    return this.http.get<Seller[]>(`${this.sellerUrl}/?username=^${username}$&password=^${password}$`)
+      .pipe(
+        tap(s => s.length ? this.isSeller = true : this.isSeller = false)
+      );
   }
 
   signupAsBuyer(buyer: Buyer) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-selling',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellingComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  onClickSignOut() {
+    this.authService.isSeller = false;
   }
 
 }

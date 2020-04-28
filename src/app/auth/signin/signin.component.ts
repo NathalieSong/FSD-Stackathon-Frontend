@@ -43,9 +43,9 @@ export class SigninComponent implements OnInit {
   }
 
   signin() {
+    const that = this;
     switch (this.role.value) {
       case this.roles.BUYER: {
-        const that = this;
         this.authService.signinAsBuyer(this.username.value, this.password.value)
           .subscribe({
             next(buyers) {
@@ -61,8 +61,17 @@ export class SigninComponent implements OnInit {
         break;
       }
       case this.roles.SELLER: {
-        this.authService.signinAsSeller(this.username.value, this.password.value);
-        this.router.navigate(['/selling']);
+        this.authService.signinAsSeller(this.username.value, this.password.value)
+          .subscribe({
+            next(sellers) {
+              if (sellers.length) {
+                that.errorSignin = false;
+                that.router.navigate(['/selling']);
+              } else {
+                that.errorSignin = true;
+              }
+            }
+          });
         break;
       }
     }

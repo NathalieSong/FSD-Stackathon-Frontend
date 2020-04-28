@@ -15,7 +15,14 @@
             <div class="align-self-center d-flex">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a routerLink="/auth" class="nav-link text-dark">Sign In/Out</a>
+                        <a *ngIf="authService.isBuyer; else signin" routerLink="/shopping" (click)="onClickSignOut()" class="nav-link text-dark">
+                            Sign Out
+                        </a>
+                        <ng-template #signin>
+                            <a routerLink="/auth" class="nav-link text-dark">
+                                Sign In
+                            </a>
+                        </ng-template>
                     </li>
                     <li class="nav-item">
                         <a routerLink="/shopping/purchase-history" class="nav-link text-dark">Purchase History</a>
