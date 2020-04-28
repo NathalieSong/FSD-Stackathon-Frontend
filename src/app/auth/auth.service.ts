@@ -34,18 +34,24 @@ export class AuthService {
       );
   }
 
-  signinAsSeller(username: string, password: string) {
+  signinAsSeller(username: string, password: string): Observable<Seller[]> {
     return this.http.get<Seller[]>(`${this.sellerUrl}/?username=^${username}$&password=^${password}$`)
       .pipe(
         tap(s => s.length ? this.isSeller = true : this.isSeller = false)
       );
   }
 
-  signupAsBuyer(buyer: Buyer) {
-    console.log('Buyer ' + buyer.username + ' signed in.');
+  signupAsBuyer(buyer: Buyer): Observable<Buyer> {
+    return this.http.post<Buyer>(this.buyersUrl, buyer, this.httpOptions)
+      .pipe(
+        tap((newBuyer: Buyer) => this.isBuyer = true)
+      );
   }
 
-  signupAsSeller(seller: Seller) {
-    console.log('Seller ' + seller.username + ' signed in.');
+  signupAsSeller(seller: Seller): Observable<Seller> {
+    return this.http.post<Seller>(this.sellerUrl, seller, this.httpOptions)
+      .pipe(
+        tap((newSeller: Seller) => this.isSeller = true)
+      );
   }
 }

@@ -11,6 +11,7 @@ import { Seller } from 'src/app/general/models/seller';
   styleUrls: ['./signup-as-seller.component.scss']
 })
 export class SignupAsSellerComponent implements OnInit {
+  errorSignup = false;
   signupForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
@@ -33,7 +34,11 @@ export class SignupAsSellerComponent implements OnInit {
   get companydesc() { return this.signupForm.get('companydesc'); }
   get gstin() { return this.signupForm.get('gstin'); }
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -45,7 +50,7 @@ export class SignupAsSellerComponent implements OnInit {
     }
   }
 
-  doTrimOfForm() {
+  private doTrimOfForm() {
     this.signupForm.setValue({
       username: this.username.value.trim(),
       password: this.password.value.trim(),
@@ -60,11 +65,19 @@ export class SignupAsSellerComponent implements OnInit {
   }
 
   signup() {
-    this.authService.signupAsSeller(this.getSellerInfo());
-    this.router.navigate(['/selling']);
+    const that = this;
+    this.authService.signupAsSeller(this.getSellerInfo()).subscribe({
+      next(newSeller) {
+        that.errorSignup = false;
+        that.router.navigate(['/selling']);
+      },
+      error(err) {
+        that.errorSignup = true;
+      }
+    });
   }
 
-  getSellerInfo(): Seller {
+  private getSellerInfo(): Seller {
     const seller = new Seller();
     seller.username = this.username.value;
     seller.password = this.password.value;

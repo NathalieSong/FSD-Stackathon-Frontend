@@ -11,6 +11,7 @@ import { Buyer } from 'src/app/general/models/buyer';
   styleUrls: ['./signup-as-buyer.component.scss']
 })
 export class SignupAsBuyerComponent implements OnInit {
+  errorSignup = false;
   signupForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
@@ -27,7 +28,11 @@ export class SignupAsBuyerComponent implements OnInit {
   get address() { return this.signupForm.get('address'); }
   get mobile() { return this.signupForm.get('mobile'); }
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -39,7 +44,7 @@ export class SignupAsBuyerComponent implements OnInit {
     }
   }
 
-  doTrimOfForm() {
+  private doTrimOfForm() {
     this.signupForm.setValue({
       username: this.username.value.trim(),
       password: this.password.value.trim(),
@@ -51,11 +56,19 @@ export class SignupAsBuyerComponent implements OnInit {
   }
 
   signup() {
-    this.authService.signupAsBuyer(this.getBuyerInfo());
-    this.router.navigate(['/shopping']);
+    const that = this;
+    this.authService.signupAsBuyer(this.getBuyerInfo()).subscribe({
+      next(newBuyer) {
+        that.errorSignup = false;
+        that.router.navigate(['/shopping']);
+      },
+      error(err) {
+        that.errorSignup = true;
+      }
+    });
   }
 
-  getBuyerInfo(): Buyer {
+  private getBuyerInfo(): Buyer {
     const buyer = new Buyer();
     buyer.username = this.username.value;
     buyer.password = this.password.value;

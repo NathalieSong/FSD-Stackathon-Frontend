@@ -4,6 +4,9 @@
     </div>
     <div class="row no-gutters">
         <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="w-100">
+            <div *ngIf="errorSignup" class="alert alert-danger" role="alert">
+                <div>Signup failed</div>
+            </div>
             <label class="w-100">
                 <div class="pb-1">Username</div>
                 <input id="username" type="text" class="form-control" placeholder="Username" formControlName="username" required>

@@ -70,7 +70,8 @@ export class SigninComponent implements OnInit {
               } else {
                 that.errorSignin = true;
               }
-            }
+            },
+            error(err) { that.errorSignin = true; }
           });
         break;
       }
