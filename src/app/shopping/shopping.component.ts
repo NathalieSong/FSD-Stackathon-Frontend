@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ShoppingService } from './shopping.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 
@@ -15,7 +14,6 @@ export class ShoppingComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private shopService: ShoppingService,
     public authService: AuthService
   ) { }
 
@@ -23,8 +21,7 @@ export class ShoppingComponent implements OnInit {
   }
 
   onClickSearch() {
-    this.shopService.getItemsByText(this.searchText.value);
-    this.router.navigate(['/shopping/search-result']);
+    this.router.navigate(['/shopping/search-result'], {queryParams: {searchText: this.searchText.value}});
   }
 
   onClickSignOut() {

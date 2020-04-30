@@ -14,7 +14,7 @@ export class AuthService {
   isSeller = false;
 
   private buyersUrl = 'api/buyers';
-  private sellerUrl = 'api/sellers';
+  private sellersUrl = 'api/sellers';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   signinAsSeller(username: string, password: string): Observable<Seller[]> {
-    return this.http.get<Seller[]>(`${this.sellerUrl}/?username=^${username}$&password=^${password}$`)
+    return this.http.get<Seller[]>(`${this.sellersUrl}/?username=^${username}$&password=^${password}$`)
       .pipe(
         tap(s => s.length ? this.isSeller = true : this.isSeller = false)
       );
@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   signupAsSeller(seller: Seller): Observable<Seller> {
-    return this.http.post<Seller>(this.sellerUrl, seller, this.httpOptions)
+    return this.http.post<Seller>(this.sellersUrl, seller, this.httpOptions)
       .pipe(
         tap((newSeller: Seller) => this.isSeller = true)
       );

@@ -1,109 +1,13 @@
 <div class="container-fluid my-4">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
+        <div *ngFor="let item of items" class="col mb-4">
+            <a routerLink="/shopping/item-detail/{{item.id}}" class="text-dark">
                 <div class="card card-height">
                     <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
                     <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description description description description description description</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
-                <div class="card card-height">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
-                    <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
-                <div class="card card-height">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
-                    <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description description description description description description</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
-                <div class="card card-height">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
-                    <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description description description description description description Item description description description description description description</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
-                <div class="card card-height">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
-                    <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description description description description description description Item description description description description description description</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
-                <div class="card card-height">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
-                    <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description description description description description description Item description description description description description description</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
-                <div class="card card-height">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
-                    <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description description description description description description Item description description description description description description</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
-                <div class="card card-height">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
-                    <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description description description description description description Item description description description description description description</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col mb-4">
-            <a routerLink="/shopping/item-detail/123" class="text-dark">
-                <div class="card card-height">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img" class="card-img-top">
-                    <div class="card-body text-truncate text-wrap">
-                        <h5 class="card-title">Item name</h5>
-                        <p class="card-text">100</p>
-                        <p class="card-text">Item description description description description description description Item description description description description description description</p>
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <p class="card-text">{{item.price}}</p>
+                        <p class="card-text">{{item.description}}</p>
                     </div>
                 </div>
             </a>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Buyer } from './general/models/buyer';
 import { Seller } from './general/models/seller';
+import { Item } from './general/models/item';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,42 @@ export class InMemoryDataService implements InMemoryDbService {
         active: true
       }
     ];
-    return { buyers, sellers };
+    const items = [
+      {
+        id: '1',
+        name: 'item1',
+        description: 'item1 desc',
+        categoryId: 'Eletronic',
+        subCategoryId: 'Mobile',
+        price: 1300,
+        manufacturer: 'China company',
+        remarks: '',
+        stockNumber: 20,
+        active: true,
+        sellerId: '1',
+        specification: 'Memory: 4G',
+        pictures: ['https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg']
+      },
+      {
+        id: '2',
+        name: 'item2',
+        description: 'item2 desc',
+        categoryId: 'Eletronic',
+        subCategoryId: 'Mobile',
+        price: 3300,
+        manufacturer: 'China company',
+        remarks: '',
+        stockNumber: 12,
+        active: true,
+        sellerId: '1',
+        specification: 'Memory: 4G',
+        pictures: ['https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg']
+      }
+    ];
+    return { buyers, sellers, items };
   }
 
-  genId<T extends Buyer | Seller>(myTable: T[]): string {
+  genId<T extends Buyer | Seller | Item>(myTable: T[]): string {
     return String(myTable.length + 1);
   }
 }

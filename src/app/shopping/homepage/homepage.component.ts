@@ -8,15 +8,16 @@ import { ShoppingService } from '../shopping.service';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
+  items: Item[] = [];
 
-  constructor(public shopService: ShoppingService) { }
+  constructor(private shopService: ShoppingService) { }
 
   ngOnInit(): void {
     this.getItems();
   }
 
   getItems() {
-    this.shopService.getItems();
+    this.shopService.getItems().subscribe(items => this.items = items);
   }
 
 }

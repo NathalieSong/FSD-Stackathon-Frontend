@@ -2,30 +2,48 @@ import { Injectable } from '@angular/core';
 import { PurchaseHistoryItem } from '../general/models/purchase-history-item';
 import { Item } from '../general/models/item';
 import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { tap, catchError } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ShoppingService {
-  items: Item[] = [];
+  private itemsUrl = 'api/items';
 
-  constructor() { }
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  constructor(
+    private http: HttpClient
+  ) { }
 
   getPurchaseHistoryList(): PurchaseHistoryItem[] {
     return [];
   }
 
-  getItems(): Item[] {
-    this.items = [];
-    return this.items;
+  getItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.itemsUrl}`)
+      .pipe(
+        catchError(this.handleError<Item[]>([]))
+      );
   }
 
-  getItemsByText(text: string): Item[] {
-    this.items = [];
-    return this.items;
+  getItemsByText(text: string): Observable<Item[]> {
+    if (!text.trim()) {
+      return of([]);
+    }
+    return this.http.get<Item[]>(`${this.itemsUrl}/?name=${text}`)
+      .pipe(
+        catchError(this.handleError<Item[]>([]))
+      );
   }
 
   getItemsByFilter(): Item[] {
-    this.items = [];
-    return this.items;
+    return [];
   }
 
   private handleError<T>(result?: T) {

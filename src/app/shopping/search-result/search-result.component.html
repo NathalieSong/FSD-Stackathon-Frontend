@@ -1,8 +1,13 @@
 <div class="container-fluid">
     <div class="row no-gutters mb-3">
-        <div>
-            Results for "mobile"
+        <div *ngIf="items.length; else noresult">
+            Results for "{{searchText$ | async}}"
         </div>
+        <ng-template #noresult>
+            <div>
+                No results for "{{searchText$ | async}}"
+            </div>
+        </ng-template>
     </div>
     <div class="row no-gutters">
         <div class="d-flex">
@@ -18,6 +23,6 @@
         </div>
     </div>
     <div class="row">
-        <app-list-of-items [items]="shopService.items"></app-list-of-items>
+        <app-list-of-items [items]="items" class="w-100"></app-list-of-items>
     </div>
 </div>
