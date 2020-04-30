@@ -5,14 +5,14 @@
     <div class="row no-gutters">
         <label class="w-100">
             <div class="pb-1">Which role you want to become?</div>
-            <select class="form-control w-100" (change)="onChangeRole($event.target.value)">
+            <select class="form-control w-100" [formControl]="role">
                 <option value="{{roles.BUYER}}">Buyer</option>
                 <option value="{{roles.SELLER}}">Seller</option>
             </select>
         </label>
-        <button class="btn btn-outline-dark w-100 my-3" type="button" (click)="signup()">Continue</button>
+        <button class="btn btn-outline-dark w-100 my-3" type="button" routerLink="{{role.value}}">Continue</button>
     </div>
     <div class="row no-gutters justify-content-end">
-        <span>Already have an account?</span> <button routerLink="/auth/signin" type="button" class="btn btn-link p-0 ml-2">Sign In</button>
+        <span>Already have an account?</span> <button routerLink="../signin" type="button" class="btn btn-link p-0 ml-2">Sign In</button>
     </div>
 </div>

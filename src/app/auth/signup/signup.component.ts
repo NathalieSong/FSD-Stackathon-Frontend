@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserRole } from '../../general/enums/user-role.enum';
 import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -9,28 +10,11 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
   roles = UserRole;
-  role = 'buyer';
+  role = this.fb.control('buyer');
 
-  constructor(private router: Router) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-  }
-
-  onChangeRole(role: string) {
-    this.role = role;
-  }
-
-  signup() {
-    switch (this.role) {
-      case this.roles.BUYER: {
-        this.router.navigate(['/auth/signup/buyer']);
-        break;
-      }
-      case this.roles.SELLER: {
-        this.router.navigate(['/auth/signup/seller']);
-        break;
-      }
-    }
   }
 
 }

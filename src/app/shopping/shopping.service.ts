@@ -4,6 +4,7 @@ import { Item } from '../general/models/item';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
+import { ItemFilter } from '../general/models/item-filter';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class ShoppingService {
 
   getItemsByText(text: string): Observable<Item[]> {
     if (!text.trim()) {
-      return of([]);
+      return this.getItems();
     }
     return this.http.get<Item[]>(`${this.itemsUrl}/?name=${text}`)
       .pipe(
@@ -42,8 +43,11 @@ export class ShoppingService {
       );
   }
 
-  getItemsByFilter(): Item[] {
-    return [];
+  getItemsByFilter(filter: ItemFilter): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.itemsUrl}/?manufacturer=${filter.manufacturer}`)
+      .pipe(
+        catchError(this.handleError<Item[]>([]))
+      );
   }
 
   private handleError<T>(result?: T) {

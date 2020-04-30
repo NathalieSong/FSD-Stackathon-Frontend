@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row no-gutters mb-3">
+    <div *ngIf="searchText$ | async" class="row no-gutters mb-3">
         <div *ngIf="items.length; else noresult">
             Results for "{{searchText$ | async}}"
         </div>
@@ -20,6 +20,11 @@
             <button id="search-icon" type="button" class="btn btn-outline-dark" (click)="onClickSearch()">
                 <i class="fa fa-search"></i>
             </button>
+        </div>
+    </div>
+    <div class="row no-gutters mt-2">
+        <div *ngIf="(startprice.invalid && (startprice.dirty || startprice.touched)) || (endprice.invalid && (endprice.dirty || endprice.touched))" class="alert alert-danger mb-0" role="alert">
+            <div *ngIf="startprice.errors?.pattern || endprice.errors?.pattern">Price is not a number</div>
         </div>
     </div>
     <div class="row">

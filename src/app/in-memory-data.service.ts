@@ -44,7 +44,7 @@ export class InMemoryDataService implements InMemoryDbService {
         categoryId: 'Eletronic',
         subCategoryId: 'Mobile',
         price: 1300,
-        manufacturer: 'China company',
+        manufacturer: 'Canada company',
         remarks: '',
         stockNumber: 20,
         active: true,

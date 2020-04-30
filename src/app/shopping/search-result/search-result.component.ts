@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ShoppingService } from '../shopping.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Item } from 'src/app/general/models/item';
+import { ItemFilter } from 'src/app/general/models/item-filter';
 
 @Component({
   selector: 'app-search-result',
@@ -14,9 +15,10 @@ import { Item } from 'src/app/general/models/item';
 export class SearchResultComponent implements OnInit {
   searchText$: Observable<string>;
   items: Item[] = [];
+  pricePattern = '[0-9\.]*';
 
-  startprice = this.fb.control('');
-  endprice = this.fb.control('');
+  startprice = this.fb.control('', Validators.pattern(this.pricePattern));
+  endprice = this.fb.control('', Validators.pattern(this.pricePattern));
   manufacturer = this.fb.control('');
 
   constructor(
@@ -41,7 +43,12 @@ export class SearchResultComponent implements OnInit {
   }
 
   onClickSearch() {
-    this.shopService.getItemsByFilter();
+    const filter: ItemFilter = {
+      startPrice: this.startprice.value,
+      endPrice: this.endprice.value,
+      manufacturer: this.manufacturer.value
+    };
+    this.shopService.getItemsByFilter(filter).subscribe(items => this.items = items);
   }
 
 }

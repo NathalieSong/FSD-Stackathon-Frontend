@@ -12,11 +12,12 @@ import { Seller } from 'src/app/general/models/seller';
 })
 export class SignupAsSellerComponent implements OnInit {
   errorSignup = false;
+  loading = false;
   signupForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
     repassword: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     address: ['', Validators.required],
     contactnumber: ['', Validators.required],
     companyname: ['', Validators.required],
@@ -66,6 +67,7 @@ export class SignupAsSellerComponent implements OnInit {
 
   signup() {
     const that = this;
+    this.loading = true;
     this.authService.signupAsSeller(this.getSellerInfo()).subscribe({
       next(newSeller) {
         that.errorSignup = false;
@@ -73,6 +75,9 @@ export class SignupAsSellerComponent implements OnInit {
       },
       error(err) {
         that.errorSignup = true;
+      },
+      complete() {
+        that.loading = false;
       }
     });
   }

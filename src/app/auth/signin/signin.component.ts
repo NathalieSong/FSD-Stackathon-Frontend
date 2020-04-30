@@ -11,6 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class SigninComponent implements OnInit {
   errorSignin = false;
+  loading = false;
   roles = UserRole;
   signinForm = this.fb.group({
     role: ['buyer'],
@@ -43,39 +44,52 @@ export class SigninComponent implements OnInit {
   }
 
   signin() {
-    const that = this;
     switch (this.role.value) {
       case this.roles.BUYER: {
-        this.authService.signinAsBuyer(this.username.value, this.password.value)
-          .subscribe({
-            next(buyers) {
-              if (buyers.length) {
-                that.errorSignin = false;
-                that.router.navigate(['/shopping']);
-              } else {
-                that.errorSignin = true;
-              }
-            },
-            error(err) { that.errorSignin = true; }
-          });
+        this.signinAsBuyer();
         break;
       }
       case this.roles.SELLER: {
-        this.authService.signinAsSeller(this.username.value, this.password.value)
-          .subscribe({
-            next(sellers) {
-              if (sellers.length) {
-                that.errorSignin = false;
-                that.router.navigate(['/selling']);
-              } else {
-                that.errorSignin = true;
-              }
-            },
-            error(err) { that.errorSignin = true; }
-          });
+        this.signinAsSeller();
         break;
       }
     }
+  }
+
+  signinAsBuyer() {
+    const that = this;
+    this.loading = true;
+    this.authService.signinAsBuyer(this.username.value, this.password.value)
+    .subscribe({
+      next(buyers) {
+        if (buyers.length) {
+          that.errorSignin = false;
+          that.router.navigate(['/shopping']);
+        } else {
+          that.errorSignin = true;
+        }
+      },
+      error(err) { that.errorSignin = true; },
+      complete() { that.loading = false; }
+    });
+  }
+
+  signinAsSeller() {
+    const that = this;
+    this.loading = true;
+    this.authService.signinAsSeller(this.username.value, this.password.value)
+    .subscribe({
+      next(sellers) {
+        if (sellers.length) {
+          that.errorSignin = false;
+          that.router.navigate(['/selling']);
+        } else {
+          that.errorSignin = true;
+        }
+      },
+      error(err) { that.errorSignin = true; },
+      complete() { that.loading = false; }
+    });
   }
 
 }

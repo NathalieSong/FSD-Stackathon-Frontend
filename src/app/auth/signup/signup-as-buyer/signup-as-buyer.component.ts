@@ -12,11 +12,12 @@ import { Buyer } from 'src/app/general/models/buyer';
 })
 export class SignupAsBuyerComponent implements OnInit {
   errorSignup = false;
+  loading = false;
   signupForm = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
     repassword: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     address: ['', Validators.required],
     mobile: ['', Validators.required]
   }, { validators: repasswordValidator });
@@ -57,6 +58,7 @@ export class SignupAsBuyerComponent implements OnInit {
 
   signup() {
     const that = this;
+    this.loading = true;
     this.authService.signupAsBuyer(this.getBuyerInfo()).subscribe({
       next(newBuyer) {
         that.errorSignup = false;
@@ -64,6 +66,9 @@ export class SignupAsBuyerComponent implements OnInit {
       },
       error(err) {
         that.errorSignup = true;
+      },
+      complete() {
+        that.loading = false;
       }
     });
   }
