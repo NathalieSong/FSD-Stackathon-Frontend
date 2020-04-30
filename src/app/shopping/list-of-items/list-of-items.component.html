@@ -6,7 +6,7 @@
                     <img src="{{item.pictures[0]}}" alt="item_img" class="card-img-top h-50">
                     <div class="card-body text-truncate text-wrap">
                         <h5 class="card-title">{{item.name}}</h5>
-                        <p class="card-text">{{item.price}}</p>
+                        <p class="card-text">{{item.price | currency}}</p>
                         <p class="card-text">{{item.description}}</p>
                     </div>
                 </div>

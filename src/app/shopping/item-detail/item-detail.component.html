@@ -1,12 +1,12 @@
 <div class="container-fluid pb-5">
     <div class="row no-gutters mb-3">
-        <button (click)="backToResults()" class="btn btn-link text-dark">
+        <button (click)="backToResults()" class="btn btn-link text-dark pl-0">
             <i class="fa fa-angle-left"></i>
             Back to Results
         </button>
     </div>
-    <div class="row item-detail-height">
-        <div class="col-4">
+    <div *ngIf="item$ | async as item" class="row">
+        <div class="col-4 item-detail-height">
             <div id="carouselExampleIndicators" class="carousel slide h-100" data-ride="carousel">
                 <ol class="carousel-indicators">
                   <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -14,14 +14,8 @@
                   <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner h-100">
-                  <div class="carousel-item active h-100">
-                    <img src="../../../assets/images/emart_logo.svg" class="d-block w-100 h-100" alt="item_img">
-                  </div>
-                  <div class="carousel-item h-100">
-                    <img src="../../../assets/images/emart_logo.svg" class="d-block w-100 h-100" alt="item_img">
-                  </div>
-                  <div class="carousel-item h-100">
-                    <img src="../../../assets/images/emart_logo.svg" class="d-block w-100 h-100" alt="item_img">
+                  <div *ngFor="let picture of item.pictures; first as isFirst" class="carousel-item h-100" [class.active]="isFirst">
+                    <img src="{{picture}}" class="d-block w-100 h-100" alt="item_img">
                   </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -34,30 +28,31 @@
                 </a>
             </div>
         </div>
-        <div class="col-8">
-            <h2>Item name</h2>
-            <p>100</p>
-            <p class="text-truncate text-wrap item-desc-height">Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description Item Description</p>
+        <div class="col-8 item-detail-height">
+            <h2>{{item.name}}</h2>
+            <p>{{item.price | currency}}</p>
+            <p class="text-truncate text-wrap item-desc-height">
+                {{item.description}}
+            </p>
             <div class="btn-bottom">
                 <div class="d-flex">
                     <label for="quantity" class="align-self-center mb-0 mr-3">Quantity</label>
-                    <select id="quantity" class="form-control quantity-width">
-                        <option>1</option>
+                    <select [disabled]="!item.stockNumber" id="quantity" class="form-control quantity-width align-self-center">
+                        <option *ngFor="let quantity of getListOfQuantity(item.stockNumber)">{{quantity}}</option>
                     </select>
+                    <div *ngIf="!item.stockNumber" class="text-dark ml-2 mb-0 align-self-center alert alert-danger">No stock</div>
                 </div>
                 <div class="mt-3">
                     <button type="button" class="btn btn-outline-dark mr-2" (click)="onClickBtn()">Add to Cart</button>
-                    <button type="button" class="btn btn-outline-dark ml-2" (click)="onClickBtn()">Buye Now</button>
+                    <button type="button" class="btn btn-outline-dark ml-2" (click)="onClickBtn()">Buy Now</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row no-gutters">
         <div class="col-12 my-4">
             <h5>Specifications</h5>
         </div>
         <div class="col-4">
-            Memory: 4G
+            {{item.specification}}
         </div>
         <div class="col-4">
             XXX: XXX

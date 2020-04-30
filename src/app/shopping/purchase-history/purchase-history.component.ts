@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PurchaseHistoryItem } from 'src/app/general/models/purchase-history-item';
 import { ShoppingService } from '../shopping.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-purchase-history',
@@ -8,7 +9,7 @@ import { ShoppingService } from '../shopping.service';
   styleUrls: ['./purchase-history.component.scss']
 })
 export class PurchaseHistoryComponent implements OnInit {
-  purchaseItems: PurchaseHistoryItem[] = [];
+  purchaseItems$: Observable<PurchaseHistoryItem[]>;
 
   constructor(private shopService: ShoppingService) { }
 
@@ -17,7 +18,7 @@ export class PurchaseHistoryComponent implements OnInit {
   }
 
   getItems() {
-    this.purchaseItems = this.shopService.getPurchaseHistoryList();
+    this.purchaseItems$ = this.shopService.getPurchaseHistoryList();
   }
 
 }
