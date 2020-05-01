@@ -63,6 +63,13 @@ export class ShoppingService {
     );
   }
 
+  addToCart(item: Item): Observable<string> {
+    return this.http.get<Item[]>(`${this.itemsUrl}/?id=^${item.id}$`)
+      .pipe(
+        map(newCartItem => newCartItem[0].id)
+      );
+  }
+
   deleteCartItemByIds(ids: string[]): Observable<CartItem[]> {
     return of([]);
   }

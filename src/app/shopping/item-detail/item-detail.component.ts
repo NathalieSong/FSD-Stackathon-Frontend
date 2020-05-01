@@ -14,6 +14,8 @@ import * as _ from 'underscore';
 })
 export class ItemDetailComponent implements OnInit {
   item$: Observable<Item>;
+  isAddingToCart = false;
+  isBuyingNow = false;
 
   constructor(
     private router: Router,
@@ -33,16 +35,32 @@ export class ItemDetailComponent implements OnInit {
     );
   }
 
-  onClickBtn() {
-    this.router.navigate(['/shopping/cart']);
-  }
-
   backToResults() {
     this.location.back();
   }
 
   getListOfStock(stock: number) {
     return stock ? _.range(1, stock + 1) : [1];
+  }
+
+  addToCart(item: Item) {
+    this.isAddingToCart = true;
+    const that = this;
+    this.shopService.addToCart(item).subscribe({
+      next(id) { },
+      error(err) { },
+      complete() { that.isAddingToCart = false; }
+    });
+  }
+
+  buyNow(item: Item) {
+    this.isBuyingNow = true;
+    const that = this;
+    this.shopService.addToCart(item).subscribe({
+      next(id) { that.router.navigate(['/shopping/cart'], {queryParams: {cartId: id}}); },
+      error(err) { },
+      complete() { that.isBuyingNow = false; }
+    });
   }
 
 }

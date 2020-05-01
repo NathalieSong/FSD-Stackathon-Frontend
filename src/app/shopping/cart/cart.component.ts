@@ -4,8 +4,8 @@ import { ShoppingService } from '../shopping.service';
 import * as _ from 'underscore';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { tap, map } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -27,7 +27,8 @@ export class CartComponent implements OnInit {
   constructor(
     private shopService: ShoppingService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +38,17 @@ export class CartComponent implements OnInit {
   private getCartItems(): void {
     this.shopService.getCartItems().subscribe(items => {
       this.getFormGroup(items);
+      this.getCartIdFromRouter();
       this.cartItems = items;
+    });
+  }
+
+  getCartIdFromRouter() {
+    this.activatedRoute.queryParamMap.subscribe(params => {
+      const cartId = params.get('cartId');
+      if (cartId) {
+        this.itemSelectsForm.get(cartId).patchValue(true);
+      }
     });
   }
 
@@ -60,13 +71,14 @@ export class CartComponent implements OnInit {
   }
 
   private removeCartItemByIds(ids: string[]) {
+    const that = this;
     this.shopService.deleteCartItemByIds(ids).subscribe({
       next(items) {
-        this.cartItems = this.cartItems.filter(item => ids.indexOf(item.id) === -1);
+        that.cartItems = that.cartItems.filter(item => ids.indexOf(item.id) === -1);
         for (const id of ids) {
-          this.itemSelectsForm.removeControl(id);
+          that.itemSelectsForm.removeControl(id);
         }
-        this.setSelectAll();
+        that.setSelectAll();
       },
       error(err) {
 
