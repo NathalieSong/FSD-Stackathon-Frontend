@@ -6,6 +6,8 @@ import { Item } from './general/models/item';
 import { PurchaseHistoryItem } from './general/models/purchase-history-item';
 import { CartItem } from './general/models/cart-item';
 import { Discount } from './general/models/discount';
+import { StockItem } from './general/models/stock-item';
+import { SellingReportItem } from './general/models/selling-report-item';
 
 @Injectable({
   providedIn: 'root'
@@ -133,10 +135,35 @@ export class InMemoryDataService implements InMemoryDbService {
         description: 'Discount for May 1st'
       }
     ];
-    return { buyers, sellers, items, purchaseHistoryItems, cartItems, discounts };
+    const stockItems = [
+      {
+        id: '1',
+        name: 'item1',
+        description: 'item1 desc',
+        price: 1300,
+        noInStock: 14,
+        noSold: 6,
+        picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
+      }
+    ];
+    const sellingReportItems = [
+      {
+        id: '1',
+        name: 'item1',
+        noSold: 6,
+        total: 7800
+      },
+      {
+        id: '2',
+        name: 'item2',
+        noSold: 3,
+        total: 9900
+      }
+    ];
+    return { buyers, sellers, items, purchaseHistoryItems, cartItems, discounts, stockItems, sellingReportItems };
   }
 
-  genId<T extends Buyer | Seller | Item | PurchaseHistoryItem | CartItem | Discount>(myTable: T[]): string {
+  genId<T extends Buyer | Seller | Item | PurchaseHistoryItem | CartItem | Discount | StockItem | SellingReportItem>(myTable: T[]): string {
     return String(myTable.length + 1);
   }
 }

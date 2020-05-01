@@ -26,23 +26,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Huawei Mobile</td>
-                    <td>5</td>
-                    <td>¥5000</td>
-                  </tr>
-                  <tr>
-                    <td>Huawei Mobile</td>
-                    <td>5</td>
-                    <td>¥5000</td>
-                  </tr>
-                  <tr>
-                    <td>Huawei Mobile</td>
-                    <td>5</td>
-                    <td>¥5000</td>
+                  <tr *ngFor="let item of items">
+                    <td>{{item.name}}</td>
+                    <td>{{item.noSold}}</td>
+                    <td>{{item.total | currency}}</td>
                   </tr>
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
 </div>

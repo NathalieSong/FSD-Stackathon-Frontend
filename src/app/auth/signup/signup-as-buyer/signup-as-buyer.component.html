@@ -18,31 +18,31 @@
                 <input id="username" type="text" class="form-control" placeholder="Username" formControlName="username" required>
             </label>
             <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger" role="alert">
-                <div *ngIf="username.errors?.required">Username is required</div>
+                <div *ngIf="username.errors?.required">Required</div>
             </div>
             <label class="w-100">
                 <div class="pb-1">Password</div>
                 <input id="password" type="text" class="form-control" placeholder="Password" formControlName="password" required>
             </label>
             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger" role="alert">
-                <div *ngIf="password.errors?.required">Password is required</div>
+                <div *ngIf="password.errors?.required">Required</div>
             </div>
             <label class="w-100">
                 <div class="pb-1">Re-enter password</div>
                 <input id="repassword" type="text" class="form-control" placeholder="Password" formControlName="repassword" required>
             </label>
             <div *ngIf="repassword.invalid && (repassword.dirty || repassword.touched)" class="alert alert-danger" role="alert">
-                <div *ngIf="repassword.errors?.required">Re-enter password is required</div>
+                <div *ngIf="repassword.errors?.required">Confirm your password</div>
             </div>
             <div *ngIf="signupForm.errors?.repassword && (signupForm.dirty || signupForm.touched)" class="cross-validation-error-message alert alert-danger" role="alert">
-                Re-entered password is different
+                Re-entered password is not the same
             </div>
             <label class="w-100">
                 <div class="pb-1">Email</div>
                 <input id="email" type="email" class="form-control" placeholder="example@xx.com" formControlName="email" required>
             </label>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger" role="alert">
-                <div *ngIf="email.errors?.required">Email is required</div>
+                <div *ngIf="email.errors?.required">Required</div>
                 <div *ngIf="email.errors?.email">Invalid email</div>
             </div>
             <label class="w-100">
@@ -50,14 +50,14 @@
                 <input id="address" type="text" class="form-control" placeholder="Address" formControlName="address" required>
             </label>
             <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger" role="alert">
-                <div *ngIf="address.errors?.required">Address is required</div>
+                <div *ngIf="address.errors?.required">Required</div>
             </div>
             <label class="w-100">
                 <div class="pb-1">Mobile</div>
                 <input id="mobile" type="text" class="form-control" placeholder="Mobile" formControlName="mobile" required>
             </label>
             <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert alert-danger" role="alert">
-                <div *ngIf="mobile.errors?.required">Mobile is required</div>
+                <div *ngIf="mobile.errors?.required">Required</div>
             </div>
             <button class="btn btn-outline-dark w-100 my-3" type="submit" [disabled]="!signupForm.valid || loading">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

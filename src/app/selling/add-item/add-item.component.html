@@ -20,15 +20,24 @@
                     </div>
                     <div class="col-10 mt-2">
                         <label for="name">Name</label>
-                        <input id="name" type="text" class="form-control text-secondary" placeholder="Name" formControlName="name">
+                        <input id="name" type="text" class="form-control text-secondary" placeholder="Name" formControlName="name" required>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="name.errors?.required">Required</div>
+                        </div>
                     </div>
                     <div class="col-2 mt-2">
                         <label for="price">Price</label>
-                        <input id="price" type="text" class="form-control text-secondary" placeholder="Price" formControlName="price">
+                        <input id="price" type="text" class="form-control text-secondary" placeholder="Price" formControlName="price" required>
+                        <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="price.errors?.required">Required</div>
+                        </div>
                     </div>
                     <div class="col-10 mt-2">
                         <label for="manufacturer">Manufacturer</label>
-                        <input id="manufacturer" type="text" class="form-control text-secondary" placeholder="Manufacturer" formControlName="manufacturer">
+                        <input id="manufacturer" type="text" class="form-control text-secondary" placeholder="Manufacturer" formControlName="manufacturer" required>
+                        <div *ngIf="manufacturer.invalid && (manufacturer.dirty || manufacturer.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="manufacturer.errors?.required">Required</div>
+                        </div>
                     </div>
                     <div class="col-2 mt-2">
                         <label for="instock">No. in Stock</label>
@@ -38,7 +47,10 @@
                     </div>
                     <div class="col-12 mt-2">
                         <label for="description">Description</label>
-                        <textarea id="description" class="form-control text-secondary" placeholder="Description" formControlName="description"></textarea>
+                        <textarea id="description" class="form-control text-secondary" placeholder="Description" formControlName="description" required></textarea>
+                        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="description.errors?.required">Required</div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-3">

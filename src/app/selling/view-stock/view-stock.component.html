@@ -10,47 +10,24 @@
         <div class="col">Actions</div>
     </div>
     <div class="row no-gutters w-100">
-        <div class="card p-4 mt-3 w-100 text-dark">
+        <div *ngFor="let sItem of items$ | async" class="card p-4 mt-3 w-100 text-dark">
             <div class="row no-gutters">
                 <div class="col-7 d-flex">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img">
+                    <img src="{{sItem.picture}}" alt="item_img" class="img-width-cust">
                     <div class="mx-3">
                         <div class="text-truncate text-wrap item-name-height">
-                            Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name
+                            {{sItem.name}}
                         </div>
                         <div class="text-truncate text-wrap item-desc-height mt-2">
-                            Item description Item description Item description Item description Item description Item description Item description
+                            {{sItem.description}}
                         </div>
                     </div>
                 </div>
-                <div class="col">100</div>
-                <div class="col">3</div>
-                <div class="col">2</div>
+                <div class="col">{{sItem.price | currency}}</div>
+                <div class="col">{{sItem.noInStock}}</div>
+                <div class="col">{{sItem.noSold}}</div>
                 <div class="col">
-                    <button type="button" class="btn p-0">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="card p-4 mt-3 w-100 text-dark">
-            <div class="row no-gutters">
-                <div class="col-7 d-flex">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img">
-                    <div class="mx-3">
-                        <div class="text-truncate text-wrap item-name-height">
-                            Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name
-                        </div>
-                        <div class="text-truncate text-wrap item-desc-height mt-2">
-                            Item description Item description Item description Item description Item description Item description Item description
-                        </div>
-                    </div>
-                </div>
-                <div class="col">100</div>
-                <div class="col">3</div>
-                <div class="col">2</div>
-                <div class="col">
-                    <button type="button" class="btn p-0">
+                    <button type="button" class="btn p-0" [routerLink]="['../edit-item', sItem.id]">
                         <i class="fa fa-edit"></i>
                     </button>
                 </div>

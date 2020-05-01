@@ -20,7 +20,7 @@ const sellingRoutes: Routes = [
           component: AddItemComponent
         },
         {
-          path: 'edit-item',
+          path: 'edit-item/:itemId',
           component: EditItemComponent
         },
         {

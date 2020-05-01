@@ -65,7 +65,7 @@ export class SignupAsSellerComponent implements OnInit {
     });
   }
 
-  signup() {
+  private signup() {
     const that = this;
     this.loading = true;
     this.authService.signupAsSeller(this.getSellerInfo()).subscribe({
