@@ -44,7 +44,7 @@
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-between fixed-bottom border border-bottom-0 checkout-height checkout-mx-8rem p-3 bg-white shadow rounded">
+<div class="d-flex justify-content-between fixed-bottom border border-bottom-0 checkout-min-height checkout-mx-8rem p-3 bg-white shadow rounded">
     <div class="d-flex align-items-start select-all-height">
         <input id="select-all" type="checkbox" class="align-self-center" (change)="onSelectAll($event.target.checked)" [checked]="isSelectAll">
         <label for="select-all" class="ml-2 mb-0 align-self-center">Select All</label>
@@ -55,16 +55,19 @@
     <div>
         <div class="d-flex">
             <label class="mb-0 mr-2 align-self-center">Tax:</label>
-            <div class="align-self-center">{{getTaxForSelectedItems()}}</div>
+            <div class="align-self-center">{{getTaxForSelectedItems() || '' | currency}}</div>
         </div>
         <div class="d-flex mt-2">
             <label for="discount" class="align-self-center mb-0 mr-2">Discount:</label>
-            <div class="align-self-center">10%</div>
-            <input id="discount" placeholder="Discount" class="form-control mx-2">
-            <button type="button" class="btn btn-outline-dark">Apply</button>
+            <div class="align-self-center">{{discountPercentage || '' | percent}}</div>
+            <input id="discount" placeholder="Discount" class="form-control mx-2 align-self-center" (change)="onChangeDiscountCode($event.target.value)">
+            <button type="button" class="btn btn-outline-dark align-self-center" (click)="onClickApply()">Apply</button>
+            <div *ngIf="discountCode && isApplied && !discountPercentage" class="alert alert-danger align-self-center mb-0 ml-2 discount-alert-cust" role="alert">
+                <div>Invalid</div>
+            </div>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <div class="align-self-center">Total: {{getTotalForSelectedItems()}}</div>
+            <div class="align-self-center">Total: {{getTotalForSelectedItems() || '' | currency}}</div>
             <button type="button" class="btn btn-outline-dark">Checkout</button>
         </div>
     </div>

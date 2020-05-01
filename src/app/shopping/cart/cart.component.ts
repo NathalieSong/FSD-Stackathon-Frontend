@@ -14,6 +14,11 @@ export class CartComponent implements OnInit {
   itemSelectsForm: FormGroup;
   isSelectAll = false;
   itemIdsNeedRemove = [];
+  discountCode = '';
+  discountPercentage = 0;
+  isApplied = false;
+  tax = 0;
+  totalItemPrice = 0;
 
   constructor(private shopService: ShoppingService, private fb: FormBuilder) { }
 
@@ -47,14 +52,13 @@ export class CartComponent implements OnInit {
   }
 
   private removeCartItemByIds(ids: string[]) {
-    const that = this;
     this.shopService.deleteCartItemByIds(ids).subscribe({
       next(items) {
-        that.cartItems = that.cartItems.filter(item => ids.indexOf(item.id) === -1);
-        ids.forEach(id => {
-          that.itemSelectsForm.removeControl(id);
-        });
-        that.setSelectAll();
+        this.cartItems = this.cartItems.filter(item => ids.indexOf(item.id) === -1);
+        for (const id of ids) {
+          this.itemSelectsForm.removeControl(id);
+        }
+        this.setSelectAll();
       },
       error(err) {
 
@@ -64,15 +68,14 @@ export class CartComponent implements OnInit {
 
   private getItemIdsSelected() {
     const itemIds = [];
-    const that = this;
-    if (!that.itemSelectsForm) {
+    if (!this.itemSelectsForm) {
       return itemIds;
     }
-    this.cartItems.forEach(item => {
-      if (that.itemSelectsForm.get(item.id).value) {
+    for (const item of this.cartItems) {
+      if (this.itemSelectsForm.get(item.id).value) {
         itemIds.push(item.id);
       }
-    });
+    }
     return itemIds;
   }
 
@@ -86,24 +89,50 @@ export class CartComponent implements OnInit {
   }
 
   onChangeQuantity(id: string, quantity: number) {
-    this.shopService.updateCartItemQuantity(id, quantity).subscribe();
+    this.shopService.updateCartItemQuantity(id, quantity).subscribe(item => {
+      const index = this.cartItems.findIndex(cItem => cItem.id === item.id);
+      this.cartItems[index].quantity = item.quantity;
+    });
   }
 
   onSelectAll(isSelectAll: boolean) {
     this.isSelectAll = isSelectAll;
     const groupValue = {};
-    this.cartItems.forEach(item => {
+    for (const item of this.cartItems) {
       groupValue[item.id] = isSelectAll;
-    });
+    }
     this.itemSelectsForm.setValue(groupValue);
   }
 
-  getTaxForSelectedItems() {
-
+  getTaxForSelectedItems(): number {
+    this.totalItemPrice = 0;
+    for (const item of this.cartItems) {
+      if (this.itemSelectsForm.get(item.id).value) {
+        this.totalItemPrice += item.itemPrice * item.quantity;
+      }
+    }
+    this.totalItemPrice = this.totalItemPrice * (1 - this.discountPercentage);
+    this.tax = this.shopService.getTaxOfPrice(this.totalItemPrice);
+    return this.tax;
   }
 
-  getTotalForSelectedItems() {
+  onChangeDiscountCode(code: string) {
+    this.discountCode = code;
+    if (!this.discountCode && this.isApplied) {
+      this.isApplied = false;
+    }
+  }
 
+  onClickApply() {
+    this.shopService.getDiscountByCode(this.discountCode)
+      .subscribe(discount => {
+        this.discountPercentage = discount ? discount.percentage : 0;
+        this.isApplied = true;
+      });
+  }
+
+  getTotalForSelectedItems(): number {
+    return this.totalItemPrice + this.tax;
   }
 
 }

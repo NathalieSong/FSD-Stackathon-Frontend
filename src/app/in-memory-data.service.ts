@@ -5,6 +5,7 @@ import { Seller } from './general/models/seller';
 import { Item } from './general/models/item';
 import { PurchaseHistoryItem } from './general/models/purchase-history-item';
 import { CartItem } from './general/models/cart-item';
+import { Discount } from './general/models/discount';
 
 @Injectable({
   providedIn: 'root'
@@ -122,10 +123,20 @@ export class InMemoryDataService implements InMemoryDbService {
         picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
       }
     ];
-    return { buyers, sellers, items, purchaseHistoryItems, cartItems };
+    const discounts = [
+      {
+        id: '1',
+        code: '12345',
+        percentage: 0.1,
+        startDate: new Date(),
+        endDate: new Date(),
+        description: 'Discount for May 1st'
+      }
+    ];
+    return { buyers, sellers, items, purchaseHistoryItems, cartItems, discounts };
   }
 
-  genId<T extends Buyer | Seller | Item | PurchaseHistoryItem | CartItem>(myTable: T[]): string {
+  genId<T extends Buyer | Seller | Item | PurchaseHistoryItem | CartItem | Discount>(myTable: T[]): string {
     return String(myTable.length + 1);
   }
 }

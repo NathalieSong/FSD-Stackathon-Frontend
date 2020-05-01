@@ -7,6 +7,7 @@ import { tap, catchError, map } from 'rxjs/operators';
 import { ItemFilter } from '../general/models/item-filter';
 import * as _ from 'underscore';
 import { CartItem } from '../general/models/cart-item';
+import { Discount } from '../general/models/discount';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ShoppingService {
   private itemsUrl = 'api/items';
   private purchaseHistoryUrl = 'api/purchaseHistoryItems';
   private cartItemsUrl = 'api/cartItems';
+  private discountsUrl = 'api/discounts';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -28,6 +30,17 @@ export class ShoppingService {
 
   getTaxOfPrice(price: number): number {
     return price * 0.1;
+  }
+
+  getDiscountByCode(code: string): Observable<Discount> {
+    if (!code.trim()) {
+      return of();
+    }
+    return this.http.get<Discount[]>(`${this.discountsUrl}/?code=^${code}$`)
+      .pipe(
+        map((discounts: Discount[]) => discounts[0]),
+        catchError(this.handleError<Discount>())
+      );
   }
 
   getPurchaseHistoryItems(): Observable<PurchaseHistoryItem[]> {

@@ -10,8 +10,8 @@
     width: 4rem;
 }
 
-.checkout-height {
-    height: 150px;
+.checkout-min-height {
+    min-height: 150px;
 }
 
 .checkout-mx-8rem {
@@ -25,4 +25,9 @@
 
 .img-width-cust {
     width: 35%;
+}
+
+.discount-alert-cust {
+    min-width: 4.5rem;
+    padding: 0.375rem 0.75rem;
 }
