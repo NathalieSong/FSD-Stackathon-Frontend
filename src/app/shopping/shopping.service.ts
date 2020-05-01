@@ -28,8 +28,12 @@ export class ShoppingService {
     private http: HttpClient
   ) { }
 
-  getTaxOfPrice(price: number): number {
-    return price * 0.1;
+  getTaxOfPrice(price: number): Observable<number> {
+    return of(price * 0.1);
+  }
+
+  checkout(cartItems: CartItem[]): Observable<boolean> {
+    return of(true);
   }
 
   getDiscountByCode(code: string): Observable<Discount> {

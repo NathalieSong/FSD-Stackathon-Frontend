@@ -55,7 +55,7 @@
     <div>
         <div class="d-flex">
             <label class="mb-0 mr-2 align-self-center">Tax:</label>
-            <div class="align-self-center">{{getTaxForSelectedItems() || '' | currency}}</div>
+            <div class="align-self-center">{{getTaxForSelectedItems() | async | currency}}</div>
         </div>
         <div class="d-flex mt-2">
             <label for="discount" class="align-self-center mb-0 mr-2">Discount:</label>
@@ -68,7 +68,10 @@
         </div>
         <div class="d-flex justify-content-between mt-2">
             <div class="align-self-center">Total: {{getTotalForSelectedItems() || '' | currency}}</div>
-            <button type="button" class="btn btn-outline-dark">Checkout</button>
+            <button type="button" class="btn btn-outline-dark" (click)="checkout()" [disabled]="isCheckoutBtnDisabled()">
+                <span *ngIf="isCheckingOut" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Checkout
+            </button>
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const shoppingRoutes: Routes = [
   {
@@ -28,6 +29,11 @@ const shoppingRoutes: Routes = [
       {
         path: 'cart',
         component: CartComponent,
+        canActivate: [ShoppingAuthGuard]
+      },
+      {
+        path: 'checkout',
+        component: CheckoutComponent,
         canActivate: [ShoppingAuthGuard]
       },
       {

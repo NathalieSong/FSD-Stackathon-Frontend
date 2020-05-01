@@ -11,6 +11,7 @@ import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { CartComponent } from './cart/cart.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeleteWithConfirmComponent } from './delete-with-confirm/delete-with-confirm.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DeleteWithConfirmComponent } from './delete-with-confirm/delete-with-co
     SearchResultComponent,
     ItemDetailComponent,
     CartComponent,
-    DeleteWithConfirmComponent
+    DeleteWithConfirmComponent,
+    CheckoutComponent
   ],
   imports: [
     CommonModule,

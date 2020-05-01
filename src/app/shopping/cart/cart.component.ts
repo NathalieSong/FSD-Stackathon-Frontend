@@ -3,6 +3,9 @@ import { CartItem } from 'src/app/general/models/cart-item';
 import { ShoppingService } from '../shopping.service';
 import * as _ from 'underscore';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -19,8 +22,13 @@ export class CartComponent implements OnInit {
   isApplied = false;
   tax = 0;
   totalItemPrice = 0;
+  isCheckingOut = false;
 
-  constructor(private shopService: ShoppingService, private fb: FormBuilder) { }
+  constructor(
+    private shopService: ShoppingService,
+    private fb: FormBuilder,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getCartItems();
@@ -104,7 +112,7 @@ export class CartComponent implements OnInit {
     this.itemSelectsForm.setValue(groupValue);
   }
 
-  getTaxForSelectedItems(): number {
+  getTaxForSelectedItems(): Observable<number> {
     this.totalItemPrice = 0;
     for (const item of this.cartItems) {
       if (this.itemSelectsForm.get(item.id).value) {
@@ -112,8 +120,9 @@ export class CartComponent implements OnInit {
       }
     }
     this.totalItemPrice = this.totalItemPrice * (1 - this.discountPercentage);
-    this.tax = this.shopService.getTaxOfPrice(this.totalItemPrice);
-    return this.tax;
+    return this.shopService.getTaxOfPrice(this.totalItemPrice).pipe(
+      tap(tax => this.tax = tax)
+    );
   }
 
   onChangeDiscountCode(code: string) {
@@ -131,8 +140,22 @@ export class CartComponent implements OnInit {
       });
   }
 
+  isCheckoutBtnDisabled(): boolean {
+    return !this.cartItems.some(item => this.itemSelectsForm.get(item.id).value) || this.isCheckingOut;
+  }
+
   getTotalForSelectedItems(): number {
     return this.totalItemPrice + this.tax;
+  }
+
+  checkout() {
+    this.isCheckingOut = true;
+    this.shopService.checkout(
+      this.cartItems.filter(item => this.itemSelectsForm.get(item.id).value)
+    ).subscribe(flag => {
+      this.isCheckingOut = !flag;
+      this.router.navigate(['/shopping/checkout']);
+    });
   }
 
 }
