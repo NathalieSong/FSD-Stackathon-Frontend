@@ -16,6 +16,7 @@ export class ItemDetailComponent implements OnInit {
   item$: Observable<Item>;
   isAddingToCart = false;
   isBuyingNow = false;
+  isError = false;
 
   constructor(
     private router: Router,
@@ -48,7 +49,7 @@ export class ItemDetailComponent implements OnInit {
     const that = this;
     this.shopService.addToCart(item).subscribe({
       next(id) { },
-      error(err) { },
+      error(err) { that.isError = true; },
       complete() { that.isAddingToCart = false; }
     });
   }
@@ -58,7 +59,7 @@ export class ItemDetailComponent implements OnInit {
     const that = this;
     this.shopService.addToCart(item).subscribe({
       next(id) { that.router.navigate(['/shopping/cart'], {queryParams: {cartId: id}}); },
-      error(err) { },
+      error(err) { that.isError = true; },
       complete() { that.isBuyingNow = false; }
     });
   }

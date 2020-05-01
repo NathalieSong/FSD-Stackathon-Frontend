@@ -23,6 +23,8 @@ export class CartComponent implements OnInit {
   tax = 0;
   totalItemPrice = 0;
   isCheckingOut = false;
+  toastText = '';
+  isError = false;
 
   constructor(
     private shopService: ShoppingService,
@@ -81,7 +83,8 @@ export class CartComponent implements OnInit {
         that.setSelectAll();
       },
       error(err) {
-
+        that.toastText = 'Failed to remove items from cart.';
+        that.isError = true;
       }
     });
   }
@@ -166,7 +169,12 @@ export class CartComponent implements OnInit {
       this.cartItems.filter(item => this.itemSelectsForm.get(item.id).value)
     ).subscribe(flag => {
       this.isCheckingOut = !flag;
-      this.router.navigate(['/shopping/checkout']);
+      if (flag) {
+        this.router.navigate(['/shopping/checkout']);
+      } else {
+        this.toastText = 'Failed to checkout';
+        this.isError = true;
+      }
     });
   }
 

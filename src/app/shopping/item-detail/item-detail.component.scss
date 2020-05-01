@@ -18,3 +18,10 @@
 .no-cursor {
     cursor: unset;
 }
+
+.toast-position-cust {
+    position: fixed;
+    top: 45vh;
+    left: 45vw;
+    min-width: 15rem;
+}

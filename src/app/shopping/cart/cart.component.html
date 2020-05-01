@@ -76,3 +76,4 @@
     </div>
 </div>
 <app-delete-with-confirm modalId="deleteConfirmModal" (remove)="onClickRemove()"></app-delete-with-confirm>
+<app-cust-toast class="toast-position-cust" [text]="toastText" title="Error" [show]="isError" (closeToast)="isError = false;"></app-cust-toast>

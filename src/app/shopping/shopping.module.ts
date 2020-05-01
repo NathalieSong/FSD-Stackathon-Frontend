@@ -12,6 +12,7 @@ import { CartComponent } from './cart/cart.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeleteWithConfirmComponent } from './delete-with-confirm/delete-with-confirm.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { CustToastComponent } from './cust-toast/cust-toast.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
     ItemDetailComponent,
     CartComponent,
     DeleteWithConfirmComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    CustToastComponent
   ],
   imports: [
     CommonModule,
