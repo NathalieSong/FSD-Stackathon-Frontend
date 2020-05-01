@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, catchError, map } from 'rxjs/operators';
 import { ItemFilter } from '../general/models/item-filter';
 import * as _ from 'underscore';
+import { CartItem } from '../general/models/cart-item';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import * as _ from 'underscore';
 export class ShoppingService {
   private itemsUrl = 'api/items';
   private purchaseHistoryUrl = 'api/purchaseHistoryItems';
+  private cartItemsUrl = 'api/cartItems';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -24,11 +26,37 @@ export class ShoppingService {
     private http: HttpClient
   ) { }
 
-  getPurchaseHistoryList(): Observable<PurchaseHistoryItem[]> {
+  getTaxOfPrice(price: number): number {
+    return price * 0.1;
+  }
+
+  getPurchaseHistoryItems(): Observable<PurchaseHistoryItem[]> {
     return this.http.get<PurchaseHistoryItem[]>(`${this.purchaseHistoryUrl}`)
     .pipe(
       map(phItems => _.sortBy(phItems, 'createdDate')),
       catchError(this.handleError<PurchaseHistoryItem[]>([]))
+    );
+  }
+
+  getCartItems(): Observable<CartItem[]> {
+    return this.http.get<CartItem[]>(`${this.cartItemsUrl}`)
+    .pipe(
+      map(cItems => _.sortBy(cItems, 'createdDate')),
+      catchError(this.handleError<PurchaseHistoryItem[]>([]))
+    );
+  }
+
+  deleteCartItemByIds(ids: string[]): Observable<CartItem[]> {
+    return of([]);
+  }
+
+  updateCartItemQuantity(id: string, quantity: number): Observable<CartItem> {
+    return this.getCartItems().pipe(
+      map((items: CartItem[]) => {
+        const cItem = items.find(item => item.id === id);
+        cItem.quantity = quantity;
+        return cItem;
+      })
     );
   }
 

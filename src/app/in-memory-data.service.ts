@@ -4,6 +4,7 @@ import { Buyer } from './general/models/buyer';
 import { Seller } from './general/models/seller';
 import { Item } from './general/models/item';
 import { PurchaseHistoryItem } from './general/models/purchase-history-item';
+import { CartItem } from './general/models/cart-item';
 
 @Injectable({
   providedIn: 'root'
@@ -97,10 +98,34 @@ export class InMemoryDataService implements InMemoryDbService {
         picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
       }
     ];
-    return { buyers, sellers, items, purchaseHistoryItems };
+    const cartItems = [
+      {
+        id: '1',
+        itemId: '1',
+        itemName: 'item1',
+        itemDesc: 'item1 description',
+        itemPrice: 1300,
+        quantity: 2,
+        stockNumber: 15,
+        createdDate: new Date(),
+        picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
+      },
+      {
+        id: '2',
+        itemId: '2',
+        itemName: 'item2',
+        itemDesc: 'item2 description',
+        itemPrice: 3300,
+        quantity: 1,
+        stockNumber: 14,
+        createdDate: new Date(),
+        picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
+      }
+    ];
+    return { buyers, sellers, items, purchaseHistoryItems, cartItems };
   }
 
-  genId<T extends Buyer | Seller | Item | PurchaseHistoryItem>(myTable: T[]): string {
+  genId<T extends Buyer | Seller | Item | PurchaseHistoryItem | CartItem>(myTable: T[]): string {
     return String(myTable.length + 1);
   }
 }

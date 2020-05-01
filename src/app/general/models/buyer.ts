@@ -5,6 +5,6 @@ export class Buyer {
     email = '';
     address = '';
     mobile = '';
-    createdDate: Date;
+    createdDate = new Date();
     active = true;
 }

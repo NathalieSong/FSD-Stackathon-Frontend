@@ -41,7 +41,7 @@ export class ItemDetailComponent implements OnInit {
     this.location.back();
   }
 
-  getListOfQuantity(stock: number) {
+  getListOfStock(stock: number) {
     return stock ? _.range(1, stock + 1) : [1];
   }
 

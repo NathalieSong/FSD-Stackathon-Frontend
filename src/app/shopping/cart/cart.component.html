@@ -4,7 +4,7 @@
     </div>
     <div class="row no-gutters w-100 border-top border-secondary text-dark pt-1 px-4">
         <div class="col-2">
-            <input type="checkbox">
+            <input type="checkbox" (change)="onSelectAll($event.target.checked)" [checked]="isSelectAll">
             Select All
         </div>
         <div class="col-5">Item</div>
@@ -13,58 +13,30 @@
         <div class="col">Total</div>
         <div class="col">Actions</div>
     </div>
-    <div class="row no-gutters w-100">
-        <div class="card p-4 mt-3 w-100 text-dark">
+    <div *ngIf="cartItems.length" class="row no-gutters w-100" [formGroup]="itemSelectsForm">
+        <div *ngFor="let item of cartItems; let i = index" class="card p-4 mt-3 w-100 text-dark">
             <div class="row no-gutters">
                 <div class="col-7 d-flex">
-                    <input type="checkbox" class="mr-3 align-self-start">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img">
+                    <input type="checkbox" class="mr-3 align-self-start" [formControlName]="item.id" (change)="setSelectAll()">
+                    <img src="{{item.picture}}" alt="item_img" class="img-width-cust">
                     <div class="mx-3">
                         <div class="text-truncate text-wrap item-name-height">
-                            Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name
+                            {{item.itemName}}
                         </div>
                         <div class="text-truncate text-wrap item-desc-height mt-2">
-                            Item description Item description Item description Item description Item description Item description Item description
+                            {{item.itemDesc}}
                         </div>
                     </div>
                 </div>
-                <div class="col">100</div>
+                <div class="col">{{item.itemPrice | currency}}</div>
                 <div class="col">
-                    <select class="form-control quantity-width">
-                        <option>1</option>
+                    <select class="form-control quantity-width" (change)="onChangeQuantity(item.id, $event.target.value)">
+                        <option *ngFor="let quantity of getListOfStock(item.stockNumber)" [selected]="item.quantity === quantity">{{quantity}}</option>
                     </select>
                 </div>
-                <div class="col">100</div>
+                <div class="col">{{item.itemPrice * item.quantity | currency}}</div>
                 <div class="col">
-                    <button type="button" class="btn p-0">
-                        <i class="fa fa-trash-alt"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="card p-4 mt-3 w-100 text-dark">
-            <div class="row no-gutters">
-                <div class="col-7 d-flex">
-                    <input type="checkbox" class="mr-3 align-self-start">
-                    <img src="../../../assets/images/emart_logo.svg" alt="item_img">
-                    <div class="mx-3">
-                        <div class="text-truncate text-wrap item-name-height">
-                            Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name Item name
-                        </div>
-                        <div class="text-truncate text-wrap item-desc-height mt-2">
-                            Item description Item description Item description Item description Item description Item description Item description
-                        </div>
-                    </div>
-                </div>
-                <div class="col">100</div>
-                <div class="col">
-                    <select class="form-control quantity-width">
-                        <option>1</option>
-                    </select>
-                </div>
-                <div class="col">100</div>
-                <div class="col">
-                    <button type="button" class="btn p-0">
+                    <button type="button" class="btn p-0" (click)="setItemIdsNeedRemove([item.id])" data-toggle="tooltip" data-placement="auto" title="Remove" data-toggle="modal" data-target="#deleteConfirmModal">
                         <i class="fa fa-trash-alt"></i>
                     </button>
                 </div>
@@ -74,16 +46,16 @@
 </div>
 <div class="d-flex justify-content-between fixed-bottom border border-bottom-0 checkout-height checkout-mx-8rem p-3 bg-white shadow rounded">
     <div class="d-flex align-items-start select-all-height">
-        <input id="select-all" type="checkbox" class="align-self-center">
+        <input id="select-all" type="checkbox" class="align-self-center" (change)="onSelectAll($event.target.checked)" [checked]="isSelectAll">
         <label for="select-all" class="ml-2 mb-0 align-self-center">Select All</label>
-        <button type="button" class="btn ml-3 p-0">
+        <button type="button" class="btn ml-2 p-0 align-self-center" (click)="setItemIdsNeedRemove([])" data-toggle="tooltip" data-placement="auto" title="Remove" data-toggle="modal" data-target="#deleteConfirmModal">
             <i class="fa fa-trash-alt"></i>
         </button>
     </div>
     <div>
         <div class="d-flex">
             <label class="mb-0 mr-2 align-self-center">Tax:</label>
-            <div class="align-self-center">¥10</div>
+            <div class="align-self-center">{{getTaxForSelectedItems()}}</div>
         </div>
         <div class="d-flex mt-2">
             <label for="discount" class="align-self-center mb-0 mr-2">Discount:</label>
@@ -92,8 +64,9 @@
             <button type="button" class="btn btn-outline-dark">Apply</button>
         </div>
         <div class="d-flex justify-content-between mt-2">
-            <div class="align-self-center">Total: 200</div>
+            <div class="align-self-center">Total: {{getTotalForSelectedItems()}}</div>
             <button type="button" class="btn btn-outline-dark">Checkout</button>
         </div>
     </div>
 </div>
+<app-delete-with-confirm modalId="deleteConfirmModal" (remove)="onClickRemove()"></app-delete-with-confirm>

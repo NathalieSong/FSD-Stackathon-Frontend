@@ -8,6 +8,6 @@ export class Seller {
     address = '';
     email = '';
     contactNumber = '';
-    createdDate: Date;
+    createdDate = new Date();
     active = true;
 }

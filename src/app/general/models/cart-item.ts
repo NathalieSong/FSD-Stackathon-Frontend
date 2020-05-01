@@ -1,12 +1,11 @@
-export class PurchaseHistoryItem {
+export class CartItem {
     id = '';
     itemId = '';
     itemName = '';
     itemDesc = '';
+    itemPrice = 0;
     quantity = 0;
-    discountCode = '';
-    discountPercentage = 0;
+    stockNumber = 0;
     createdDate = new Date();
-    total = 0;
     picture = '';
 }

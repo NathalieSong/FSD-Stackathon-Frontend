@@ -14,11 +14,11 @@ export class PurchaseHistoryComponent implements OnInit {
   constructor(private shopService: ShoppingService) { }
 
   ngOnInit(): void {
-    this.getItems();
+    this.getPurchaseItems();
   }
 
-  getItems() {
-    this.purchaseItems$ = this.shopService.getPurchaseHistoryList();
+  private getPurchaseItems() {
+    this.purchaseItems$ = this.shopService.getPurchaseHistoryItems();
   }
 
 }
