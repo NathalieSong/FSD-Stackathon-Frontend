@@ -13,15 +13,13 @@ import { SubCategory } from 'src/app/general/models/sub-category';
   styleUrls: ['./add-item.component.scss']
 })
 export class AddItemComponent implements OnInit {
-  stockPattern = '[0-9]*';
-  pricePattern = '[0-9\.]*';
   addItemForm = this.fb.group({
     categoryId: ['', Validators.required],
     subCategoryId: ['', Validators.required],
     name: ['', Validators.required],
-    price: ['', [Validators.required, Validators.pattern(this.pricePattern)]],
+    price: ['', [Validators.required, Validators.pattern(this.sellService.pricePattern)]],
     manufacturer: ['', Validators.required],
-    stockNumber: ['', [Validators.required, Validators.pattern(this.stockPattern)]],
+    stockNumber: ['', [Validators.required, Validators.pattern(this.sellService.stockPattern)]],
     description: ['', Validators.required],
     pictures: this.fb.array([])
   });
@@ -87,7 +85,7 @@ export class AddItemComponent implements OnInit {
     const that = this;
     this.loading = true;
     this.sellService.addItem(this.getItemInfo()).subscribe({
-      next(newSeller) {
+      next(newItem) {
         that.isError = false;
         that.router.navigate(['/selling']);
       },

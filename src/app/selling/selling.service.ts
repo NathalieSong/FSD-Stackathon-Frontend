@@ -13,6 +13,8 @@ import { SubCategory } from '../general/models/sub-category';
   providedIn: 'root'
 })
 export class SellingService {
+  public stockPattern = '[0-9]*';
+  public pricePattern = '[0-9\.]*';
   private itemsUrl = 'api/items';
   private stockItemsUrl = 'api/stockItems';
   private reportItemsUrl = 'api/sellingReportItems';
@@ -39,6 +41,17 @@ export class SellingService {
       .pipe(
         catchError(this.handleError<Category[]>([]))
       );
+  }
+
+  getItemById(itemId: string): Observable<Item> {
+    return this.http.get<Item[]>(`${this.itemsUrl}/?id=^${itemId}$`)
+      .pipe(
+        map((items: Item[]) => items[0])
+      );
+  }
+
+  updateItem(item: Item): Observable<Item> {
+    return this.http.put<Item>(this.itemsUrl, item, this.httpOptions);
   }
 
   addItem(item: Item): Observable<Item> {

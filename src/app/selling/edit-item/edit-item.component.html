@@ -2,55 +2,83 @@
     <div class="row no-gutters w-100 text-header">
         Edit Item
     </div>
-    <div class="row no-gutters padding-bottom-cust">
+    <div *ngIf="itemId" class="row no-gutters padding-bottom-cust">
         <div class="border bg-white py-4 px-5">
             <form [formGroup]="editItemForm" (ngSubmit)="onSubmit()">
                 <div class="row">
                     <div class="col-12">
                         <label for="itemid">Item ID</label>
-                        <div id="itemid" class="text-secondary">234567</div>
+                        <div id="itemid" class="text-secondary">{{itemId}}</div>
                     </div>
                     <div class="col-6 mt-2">
                         <label for="category">Category</label>
-                        <select id="category" class="form-control text-secondary" formControlName="categoryId">
-                            <option>Electronic</option>
+                        <select id="category" class="form-control text-secondary" formControlName="categoryId" required>
+                            <option *ngFor="let category of categories$ | async" [value]="category.id">{{category.name}}</option>
                         </select>
+                        <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="categoryId.errors?.required">Required</div>
+                        </div>
                     </div>
                     <div class="col-6 mt-2">
                         <label for="subcategory">SubCategory</label>
-                        <select id="subcategory" class="form-control text-secondary" formControlName="subCategoryId">
-                            <option>Mobile</option>
+                        <select id="subcategory" class="form-control text-secondary" formControlName="subCategoryId" required>
+                            <option *ngFor="let subCategory of subCategories$ | async" [value]="subCategory.id">{{subCategory.name}}</option>
                         </select>
+                        <div *ngIf="subCategoryId.invalid && (subCategoryId.dirty || subCategoryId.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="subCategoryId.errors?.required">Required</div>
+                        </div>
                     </div>
                     <div class="col-10 mt-2">
                         <label for="name">Name</label>
-                        <input id="name" type="text" class="form-control text-secondary" placeholder="Name" formControlName="name">
+                        <input id="name" type="text" class="form-control text-secondary" placeholder="Name" formControlName="name" required>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="name.errors?.required">Required</div>
+                        </div>
                     </div>
                     <div class="col-2 mt-2">
                         <label for="price">Price</label>
-                        <input id="price" type="text" class="form-control text-secondary" placeholder="Price" formControlName="price">
+                        <input id="price" type="text" class="form-control text-secondary" placeholder="Price" formControlName="price" required>
+                        <div *ngIf="price.invalid && (price.dirty || price.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="price.errors?.required">Required</div>
+                            <div *ngIf="price.errors?.pattern">Invalid</div>
+                        </div>
                     </div>
                     <div class="col-10 mt-2">
                         <label for="manufacturer">Manufacturer</label>
-                        <input id="manufacturer" type="text" class="form-control text-secondary" placeholder="Manufacturer" formControlName="manufacturer">
+                        <input id="manufacturer" type="text" class="form-control text-secondary" placeholder="Manufacturer" formControlName="manufacturer" required>
+                        <div *ngIf="manufacturer.invalid && (manufacturer.dirty || manufacturer.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="manufacturer.errors?.required">Required</div>
+                        </div>
                     </div>
                     <div class="col-2 mt-2">
-                        <label for="instock">No. in Stock</label>
-                        <select id="instock" class="form-control w-100 text-secondary" formControlName="stockNumber">
-                            <option>1</option>
-                        </select>
+                        <label for="instock">Stock</label>
+                        <input id="instock" type="text" class="form-control text-secondary" placeholder="Stock Number" formControlName="stockNumber" required>
+                        <div *ngIf="stockNumber.invalid && (stockNumber.dirty || stockNumber.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="stockNumber.errors?.required">Required</div>
+                            <div *ngIf="stockNumber.errors?.pattern">Invalid</div>
+                        </div>
                     </div>
                     <div class="col-12 mt-2">
                         <label for="description">Description</label>
-                        <textarea id="description" class="form-control text-secondary" placeholder="Description" formControlName="description"></textarea>
+                        <textarea id="description" class="form-control text-secondary" placeholder="Description" formControlName="description" required></textarea>
+                        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger mt-2" role="alert">
+                            <div *ngIf="description.errors?.required">Required</div>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3" formArrayName="pictures">
                     <div class="col-12 mt-2">
-                        <button type="button" class="btn btn-outline-dark">Upload Picture</button>
+                        <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#uploadPicture">
+                            Upload Picture
+                        </button>
                     </div>
-                    <div class="col-4 mt-3">
-                        <img src="../../../assets/images/emart_logo.svg" alt="item_img">
+                    <div *ngFor="let url of pictures.controls; let i = index" class="col-4 mt-3 img-height-cust">
+                        <img src="{{url.value}}" alt="item_img" class="h-100">
+                    </div>
+                    <div class="col-12" *ngIf="!pictures.controls.length">
+                        <div class="alert alert-danger mt-2" role="alert">
+                            <div>Required</div>
+                        </div>
                     </div>
                 </div>
                 <div class="row no-gutters mt-3">
@@ -69,9 +97,14 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end fixed-bottom border border-bottom-0 edit-item-height edit-item-mx-8rem p-3 bg-white shadow rounded">
-                    <button type="submit" class="btn btn-outline-dark edit-btn-width">Edit</button>
+                    <button type="submit" class="btn btn-outline-dark edit-btn-width" [disabled]="!editItemForm.valid">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Edit
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<app-upload-picture-modal modalId="uploadPicture" (upload)="onUploadPicture($event)"></app-upload-picture-modal>
+<app-cust-toast class="toast-position-cust" [text]="toastText" title="Error" [show]="isError" (closeToast)="isError = false;"></app-cust-toast>
