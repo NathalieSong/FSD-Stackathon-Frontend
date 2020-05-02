@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadPictureModalComponent } from './upload-picture-modal.component';
+import { CommonModule } from '@angular/common';
+import { SellingRoutingModule } from '../selling-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { UtilsModule } from '../../utils/utils.module';
 
 describe('UploadPictureModalComponent', () => {
   let component: UploadPictureModalComponent;
@@ -8,7 +13,14 @@ describe('UploadPictureModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UploadPictureModalComponent ]
+      declarations: [ UploadPictureModalComponent ],
+      imports: [
+        CommonModule,
+        SellingRoutingModule,
+        UtilsModule,
+        ReactiveFormsModule,
+        HttpClientModule
+      ]
     })
     .compileComponents();
   }));

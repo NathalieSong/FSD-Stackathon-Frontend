@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignupAsBuyerComponent } from './signup-as-buyer.component';
+import { CommonModule } from '@angular/common';
+import { AuthRoutingModule } from '../../auth-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 describe('SignupAsBuyerComponent', () => {
   let component: SignupAsBuyerComponent;
@@ -8,7 +13,14 @@ describe('SignupAsBuyerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignupAsBuyerComponent ]
+      declarations: [ SignupAsBuyerComponent ],
+      imports: [
+        CommonModule,
+        AuthRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        AppRoutingModule
+      ]
     })
     .compileComponents();
   }));

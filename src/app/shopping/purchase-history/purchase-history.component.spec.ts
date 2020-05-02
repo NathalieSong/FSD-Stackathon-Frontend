@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PurchaseHistoryComponent } from './purchase-history.component';
+import { CommonModule } from '@angular/common';
+import { ShoppingRoutingModule } from '../shopping-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { UtilsModule } from '../../utils/utils.module';
 
 describe('PurchaseHistoryComponent', () => {
   let component: PurchaseHistoryComponent;
@@ -8,7 +13,14 @@ describe('PurchaseHistoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PurchaseHistoryComponent ]
+      declarations: [ PurchaseHistoryComponent ],
+      imports: [
+        CommonModule,
+        ShoppingRoutingModule,
+        UtilsModule,
+        ReactiveFormsModule,
+        HttpClientModule
+      ]
     })
     .compileComponents();
   }));
