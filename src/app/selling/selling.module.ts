@@ -8,6 +8,8 @@ import { EditItemComponent } from './edit-item/edit-item.component';
 import { ReportComponent } from './report/report.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { UploadPictureModalComponent } from './upload-picture-modal/upload-picture-modal.component';
+import { UtilsModule } from '../utils/utils.module';
 
 @NgModule({
   declarations: [
@@ -15,11 +17,13 @@ import { HttpClientModule } from '@angular/common/http';
     ViewStockComponent,
     AddItemComponent,
     EditItemComponent,
-    ReportComponent
+    ReportComponent,
+    UploadPictureModalComponent
   ],
   imports: [
     CommonModule,
     SellingRoutingModule,
+    UtilsModule,
     ReactiveFormsModule,
     HttpClientModule
   ]

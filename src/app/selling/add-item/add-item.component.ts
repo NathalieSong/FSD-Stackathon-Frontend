@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Item } from 'src/app/general/models/item';
 import { SellingService } from '../selling.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Category } from 'src/app/general/models/category';
+import { SubCategory } from 'src/app/general/models/sub-category';
 
 @Component({
   selector: 'app-add-item',
@@ -10,19 +13,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-item.component.scss']
 })
 export class AddItemComponent implements OnInit {
+  stockPattern = '[0-9]*';
+  pricePattern = '[0-9\.]*';
   addItemForm = this.fb.group({
     categoryId: ['', Validators.required],
     subCategoryId: ['', Validators.required],
     name: ['', Validators.required],
-    price: ['', Validators.required],
+    price: ['', [Validators.required, Validators.pattern(this.pricePattern)]],
     manufacturer: ['', Validators.required],
-    stockNumber: [0, Validators.required],
+    stockNumber: ['', [Validators.required, Validators.pattern(this.stockPattern)]],
     description: ['', Validators.required],
-    pictures: [[], Validators.required]
+    pictures: this.fb.array([])
   });
   specification = '';
   isError = false;
   loading = false;
+  categories$: Observable<Category[]>;
+  subCategories$: Observable<SubCategory[]>;
 
   get categoryId() { return this.addItemForm.get('categoryId'); }
   get subCategoryId() { return this.addItemForm.get('subCategoryId'); }
@@ -31,7 +38,7 @@ export class AddItemComponent implements OnInit {
   get manufacturer() { return this.addItemForm.get('manufacturer'); }
   get stockNumber() { return this.addItemForm.get('stockNumber'); }
   get description() { return this.addItemForm.get('description'); }
-  get pictures() { return this.addItemForm.get('pictures'); }
+  get pictures() { return this.addItemForm.get('pictures') as FormArray; }
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +47,20 @@ export class AddItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCategories();
+    this.getSubCategories();
+  }
+
+  getCategories() {
+    this.categories$ = this.sellService.getCategories();
+  }
+
+  getSubCategories() {
+    this.subCategories$ = this.sellService.getSubCategories();
+  }
+
+  onUploadPicture(url: string) {
+    this.pictures.push(this.fb.control(url));
   }
 
   onSubmit() {

@@ -24,7 +24,7 @@
     </div>
     <div class="row no-gutters mt-2">
         <div *ngIf="(startprice.invalid && (startprice.dirty || startprice.touched)) || (endprice.invalid && (endprice.dirty || endprice.touched))" class="alert alert-danger mb-0" role="alert">
-            <div *ngIf="startprice.errors?.pattern || endprice.errors?.pattern">Price is not a number</div>
+            <div *ngIf="startprice.errors?.pattern || endprice.errors?.pattern">Price needs to be a number</div>
         </div>
     </div>
     <div class="row">

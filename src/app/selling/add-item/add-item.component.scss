@@ -2,6 +2,10 @@
     height: 80px;
 }
 
+.padding-bottom-cust {
+    padding-bottom: 90px;
+}
+
 .add-item-mx-8rem {
     margin-left: 8rem;
     margin-right: 8rem;
@@ -13,4 +17,15 @@ label {
 
 .add-btn-width {
     width: 80px;
+}
+
+.toast-position-cust {
+    position: fixed;
+    top: 45vh;
+    left: 45vw;
+    min-width: 15rem;
+}
+
+.img-height-cust {
+    height: 8rem;
 }

@@ -10,9 +10,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { CartComponent } from './cart/cart.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DeleteWithConfirmComponent } from './delete-with-confirm/delete-with-confirm.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { CustToastComponent } from './cust-toast/cust-toast.component';
+import { UtilsModule } from '../utils/utils.module';
 
 @NgModule({
   declarations: [
@@ -23,13 +22,12 @@ import { CustToastComponent } from './cust-toast/cust-toast.component';
     SearchResultComponent,
     ItemDetailComponent,
     CartComponent,
-    DeleteWithConfirmComponent,
-    CheckoutComponent,
-    CustToastComponent
+    CheckoutComponent
   ],
   imports: [
     CommonModule,
     ShoppingRoutingModule,
+    UtilsModule,
     ReactiveFormsModule,
     HttpClientModule
   ]

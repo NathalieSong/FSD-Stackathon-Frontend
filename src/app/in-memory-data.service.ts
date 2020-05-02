@@ -8,6 +8,8 @@ import { CartItem } from './general/models/cart-item';
 import { Discount } from './general/models/discount';
 import { StockItem } from './general/models/stock-item';
 import { SellingReportItem } from './general/models/selling-report-item';
+import { Category } from './general/models/category';
+import { SubCategory } from './general/models/sub-category';
 
 @Injectable({
   providedIn: 'root'
@@ -160,10 +162,29 @@ export class InMemoryDataService implements InMemoryDbService {
         total: 9900
       }
     ];
-    return { buyers, sellers, items, purchaseHistoryItems, cartItems, discounts, stockItems, sellingReportItems };
+    const categories = [
+      {
+        id: '1',
+        name: 'Electric',
+        description: 'Electric goods'
+      }
+    ];
+    const subCategories = [
+      {
+        id: '1',
+        name: 'Mobile',
+        description: 'Mobile for electric',
+        categoryId: '1',
+        GST: 0.2,
+        specification: ''
+      }
+    ];
+    return { buyers, sellers, items, purchaseHistoryItems, cartItems,
+      discounts, stockItems, sellingReportItems, categories, subCategories };
   }
 
-  genId<T extends Buyer | Seller | Item | PurchaseHistoryItem | CartItem | Discount | StockItem | SellingReportItem>(myTable: T[]): string {
+  genId<T extends Buyer | Seller | Item | PurchaseHistoryItem | CartItem
+    | Discount | StockItem | SellingReportItem | Category | SubCategory>(myTable: T[]): string {
     return String(myTable.length + 1);
   }
 }

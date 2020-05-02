@@ -6,6 +6,8 @@ import * as _ from 'underscore';
 import { map, catchError } from 'rxjs/operators';
 import { SellingReportItem } from '../general/models/selling-report-item';
 import { Item } from '../general/models/item';
+import { Category } from '../general/models/category';
+import { SubCategory } from '../general/models/sub-category';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,8 @@ export class SellingService {
   private itemsUrl = 'api/items';
   private stockItemsUrl = 'api/stockItems';
   private reportItemsUrl = 'api/sellingReportItems';
+  private categoriesUrl = 'api/categories';
+  private subCategoriesUrl = 'api/subCategories';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -22,6 +26,20 @@ export class SellingService {
   };
 
   constructor(private http: HttpClient) { }
+
+  getSubCategories(): Observable<SubCategory[]> {
+    return this.http.get<SubCategory[]>(`${this.subCategoriesUrl}`)
+      .pipe(
+        catchError(this.handleError<SubCategory[]>([]))
+      );
+  }
+
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.categoriesUrl}`)
+      .pipe(
+        catchError(this.handleError<Category[]>([]))
+      );
+  }
 
   addItem(item: Item): Observable<Item> {
     return this.http.post<Item>(this.itemsUrl, item, this.httpOptions);
