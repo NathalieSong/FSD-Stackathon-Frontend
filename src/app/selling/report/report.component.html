@@ -7,10 +7,16 @@
             <form [formGroup]="periodForm" (ngSubmit)="onSubmit()">
                 <label for="dateinterval">Period</label>
                 <div id="dateinterval" class="d-flex">
-                    <input type="date" class="form-control" formControlName="startPeriod">
+                    <input type="date" class="form-control" formControlName="startPeriod" required>
                     <span class="mx-2 align-self-center">to</span>
-                    <input type="date" class="form-control" formControlName="endPeriod">
-                    <button type="submit" class="btn btn-outline-dark ml-3">Generate</button>
+                    <input type="date" class="form-control" formControlName="endPeriod" required>
+                    <button type="submit" class="btn btn-outline-primary ml-3" [disabled]="!periodForm.valid">
+                        Generate
+                    </button>
+                </div>
+                <div *ngIf="(startPeriod.invalid && (startPeriod.dirty || startPeriod.touched)) || (endPeriod.invalid && (endPeriod.dirty || endPeriod.touched))" class="alert alert-danger mt-2" role="alert">
+                    <div *ngIf="startPeriod.errors?.required">Start period required</div>
+                    <div *ngIf="endPeriod.errors?.required">End period required</div>
                 </div>
             </form>
         </div>

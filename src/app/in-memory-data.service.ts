@@ -57,7 +57,11 @@ export class InMemoryDataService implements InMemoryDbService {
         active: true,
         sellerId: '1',
         specification: 'Memory: 4G',
-        pictures: ['https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg']
+        pictures: [
+          'https://img10.360buyimg.com/cms/jfs/t1/55062/20/13639/188066/5da6d46eE55ca5404/bf4a17114a9c52e9.jpg',
+          'https://img13.360buyimg.com/cms/jfs/t1/86249/34/101/144552/5da6d46eEf9dbfc60/cdea225bbd8e1e1f.jpg',
+          'https://img10.360buyimg.com/cms/jfs/t1/104518/1/69/134189/5da6d46dE520b336f/41f55182bc7ec321.jpg'
+        ]
       },
       {
         id: '2',
@@ -72,7 +76,11 @@ export class InMemoryDataService implements InMemoryDbService {
         active: true,
         sellerId: '1',
         specification: 'Memory: 4G',
-        pictures: ['https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg']
+        pictures: [
+          'https://img11.360buyimg.com/cms/jfs/t1/89900/13/1086/338676/5dba3fdaE6c1b2617/8b1cd2dc9de448ec.jpg',
+          'https://img11.360buyimg.com/cms/jfs/t1/103870/30/959/109304/5db6c430Ebbcc3e0e/a7ab00266456a323.jpg',
+          'https://img11.360buyimg.com/cms/jfs/t1/105266/12/931/97626/5db6c434Ed60c2d23/aaab719a05c747e6.jpg'
+        ]
       }
     ];
     const purchaseHistoryItems = [
@@ -87,7 +95,7 @@ export class InMemoryDataService implements InMemoryDbService {
         discountPercentage: 0.2,
         createdDate: new Date(),
         total: 2600,
-        picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
+        picture: 'https://img10.360buyimg.com/cms/jfs/t1/55062/20/13639/188066/5da6d46eE55ca5404/bf4a17114a9c52e9.jpg'
       },
       {
         id: '1',
@@ -100,7 +108,7 @@ export class InMemoryDataService implements InMemoryDbService {
         discountPercentage: 0,
         createdDate: new Date(),
         total: 3300,
-        picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
+        picture: 'https://img11.360buyimg.com/cms/jfs/t1/89900/13/1086/338676/5dba3fdaE6c1b2617/8b1cd2dc9de448ec.jpg'
       }
     ];
     const cartItems = [
@@ -113,7 +121,7 @@ export class InMemoryDataService implements InMemoryDbService {
         quantity: 2,
         stockNumber: 15,
         createdDate: new Date(),
-        picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
+        picture: 'https://img10.360buyimg.com/cms/jfs/t1/55062/20/13639/188066/5da6d46eE55ca5404/bf4a17114a9c52e9.jpg'
       },
       {
         id: '2',
@@ -124,7 +132,7 @@ export class InMemoryDataService implements InMemoryDbService {
         quantity: 1,
         stockNumber: 14,
         createdDate: new Date(),
-        picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
+        picture: 'https://img11.360buyimg.com/cms/jfs/t1/89900/13/1086/338676/5dba3fdaE6c1b2617/8b1cd2dc9de448ec.jpg'
       }
     ];
     const discounts = [
@@ -145,7 +153,7 @@ export class InMemoryDataService implements InMemoryDbService {
         price: 1300,
         noInStock: 14,
         noSold: 6,
-        picture: 'https://github.com/NathalieSong/FSD-Stackathon-Pictures/blob/master/emart_logo.svg'
+        picture: 'https://img10.360buyimg.com/cms/jfs/t1/55062/20/13639/188066/5da6d46eE55ca5404/bf4a17114a9c52e9.jpg'
       }
     ];
     const sellingReportItems = [

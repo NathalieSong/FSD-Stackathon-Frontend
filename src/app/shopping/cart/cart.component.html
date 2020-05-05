@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid cart-pb-200">
     <div class="row no-gutters w-100 text-header">
         Shopping Cart
     </div>
@@ -14,7 +14,7 @@
         <div class="col">Actions</div>
     </div>
     <div *ngIf="cartItems.length" class="row no-gutters w-100" [formGroup]="itemSelectsForm">
-        <div *ngFor="let item of cartItems; let i = index" class="card p-4 mt-3 w-100 text-dark">
+        <div *ngFor="let item of cartItems; let i = index" class="card p-4 mt-3 w-100 text-dark shadow">
             <div class="row no-gutters">
                 <div class="col-7 d-flex">
                     <input type="checkbox" class="mr-3 align-self-start" [formControlName]="item.id" (change)="setSelectAll()">
@@ -37,7 +37,7 @@
                 <div class="col">{{item.itemPrice * item.quantity | currency}}</div>
                 <div class="col">
                     <button type="button" class="btn p-0" (click)="setItemIdsNeedRemove([item.id])" data-toggle="tooltip" data-placement="auto" title="Remove" data-toggle="modal" data-target="#deleteConfirmModal">
-                        <i class="fa fa-trash-alt"></i>
+                        <i class="fa fa-trash-alt text-secondary"></i>
                     </button>
                 </div>
             </div>
@@ -49,7 +49,7 @@
         <input id="select-all" type="checkbox" class="align-self-center" (change)="onSelectAll($event.target.checked)" [checked]="isSelectAll">
         <label for="select-all" class="ml-2 mb-0 align-self-center">Select All</label>
         <button type="button" class="btn ml-2 p-0 align-self-center" (click)="setItemIdsNeedRemove([])" data-toggle="tooltip" data-placement="auto" title="Remove" data-toggle="modal" data-target="#deleteConfirmModal">
-            <i class="fa fa-trash-alt"></i>
+            <i class="fa fa-trash-alt text-secondary"></i>
         </button>
     </div>
     <div>
@@ -61,14 +61,14 @@
             <label for="discount" class="align-self-center mb-0 mr-2">Discount:</label>
             <div class="align-self-center">{{discountPercentage || '' | percent}}</div>
             <input id="discount" placeholder="Discount" class="form-control mx-2 align-self-center" (change)="onChangeDiscountCode($event.target.value)">
-            <button type="button" class="btn btn-outline-dark align-self-center" (click)="onClickApply()">Apply</button>
+            <button type="button" class="btn btn-outline-primary align-self-center" (click)="onClickApply()">Apply</button>
             <div *ngIf="discountCode && isApplied && !discountPercentage" class="alert alert-danger align-self-center mb-0 ml-2 discount-alert-cust" role="alert">
                 <div>Invalid</div>
             </div>
         </div>
         <div class="d-flex justify-content-between mt-2">
             <div class="align-self-center">Total: {{getTotalForSelectedItems() || '' | currency}}</div>
-            <button type="button" class="btn btn-outline-dark" (click)="checkout()" [disabled]="isCheckoutBtnDisabled()">
+            <button type="button" class="btn btn-outline-primary" (click)="checkout()" [disabled]="isCheckoutBtnDisabled()">
                 <span *ngIf="isCheckingOut" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Checkout
             </button>
