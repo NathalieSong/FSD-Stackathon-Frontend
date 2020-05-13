@@ -1,6 +1,6 @@
 export class SellingReportItem {
-    id = '';
-    name = '';
+    itemId = '';
+    itemName = '';
     noSold = '';
     total = 0;
 }

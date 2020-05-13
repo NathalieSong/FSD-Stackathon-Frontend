@@ -8,7 +8,6 @@ export class Item {
     manufacturer = '';
     remarks = '';
     stockNumber = 0;
-    active = true;
     sellerId = '';
     specification = '';
     pictures = [''];

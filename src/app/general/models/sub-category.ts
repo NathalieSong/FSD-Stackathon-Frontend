@@ -4,5 +4,5 @@ export class SubCategory {
     description = '';
     categoryId = '';
     GST = 0;
-    specification = '';
+    specification: object;
 }

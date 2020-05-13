@@ -4,6 +4,7 @@ export class CartItem {
     itemName = '';
     itemDesc = '';
     itemPrice = 0;
+    gst = 0.1;
     quantity = 0;
     stockNumber = 0;
     createdDate = new Date();
