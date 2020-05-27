@@ -4,9 +4,9 @@ export class Seller {
     password = '';
     companyName = '';
     companyDescription = '';
-    GSTIN: number;
+    gstin: number;
     address = '';
-    email = '';
+    emailId = '';
     contactNumber = '';
     createdDate = new Date();
     active = true;

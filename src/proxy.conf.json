@@ -1,0 +1,20 @@
+{
+    "/api/user/*": {
+      "target": "http://localhost:9001",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+    },
+    "/api/order/*": {
+        "target": "http://localhost:9001",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/api/item/*": {
+        "target": "http://localhost:9001",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+  }

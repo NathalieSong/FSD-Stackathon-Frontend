@@ -3,7 +3,7 @@ export class CartItem {
     itemId = '';
     itemName = '';
     itemDesc = '';
-    itemPrice = 0;
+    itemPrice = 0.0;
     gst = 0.1;
     quantity = 0;
     stockNumber = 0;

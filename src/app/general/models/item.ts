@@ -9,6 +9,6 @@ export class Item {
     remarks = '';
     stockNumber = 0;
     sellerId = '';
-    specification = '';
+    specification: any;
     pictures = [''];
 }

@@ -7,7 +7,7 @@
             <div class="align-self-center d-flex">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a *ngIf="authService.isSeller; else signin" routerLink="/selling" (click)="onClickSignOut()" class="nav-link text-dark">
+                        <a *ngIf="authService.isSeller(); else signin" routerLink="/selling" (click)="onClickSignOut()" class="nav-link text-dark">
                             Sign Out
                         </a>
                         <ng-template #signin>

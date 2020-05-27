@@ -7,6 +7,6 @@ export class PurchaseHistoryItem {
     discountCode = '';
     discountPercentage = 0;
     createdDate = new Date();
-    total = 0;
+    totalAfterDiscount = 0;
     picture = '';
 }

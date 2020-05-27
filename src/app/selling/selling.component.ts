@@ -14,7 +14,7 @@ export class SellingComponent implements OnInit {
   }
 
   onClickSignOut() {
-    this.authService.isSeller = false;
+    this.authService.signout();
   }
 
 }

@@ -77,7 +77,7 @@ export class SignupAsBuyerComponent implements OnInit {
     const buyer = new Buyer();
     buyer.username = this.username.value;
     buyer.password = this.password.value;
-    buyer.email = this.email.value;
+    buyer.emailId = this.email.value;
     buyer.address = this.address.value;
     buyer.mobile = this.mobile.value;
     return buyer;

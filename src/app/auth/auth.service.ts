@@ -5,16 +5,17 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../general/guards/local-storage.service';
+import { UserRole } from '../general/enums/user-role.enum';
+import { UserProfile } from '../general/models/user-profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isBuyer = false;
-  isSeller = false;
+  roles = UserRole;
 
-  private buyersUrl = 'api/buyers';
-  private sellersUrl = 'api/sellers';
+  private userBaseUrl = 'api/user';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -24,34 +25,70 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private storageService: LocalStorageService,
     private router: Router
   ) { }
 
-  signinAsBuyer(username: string, password: string): Observable<Buyer[]> {
-    return this.http.get<Buyer[]>(`${this.buyersUrl}/?username=^${username}$&password=^${password}$`)
-      .pipe(
-        tap(b => b.length ? this.isBuyer = true : this.isBuyer = false)
-      );
+  getToken(): string {
+    const profile = this.storageService.getUserProfile();
+    return profile ? profile.token : null;
   }
 
-  signinAsSeller(username: string, password: string): Observable<Seller[]> {
-    return this.http.get<Seller[]>(`${this.sellersUrl}/?username=^${username}$&password=^${password}$`)
-      .pipe(
-        tap(s => s.length ? this.isSeller = true : this.isSeller = false)
-      );
+  clearToken() {
+    this.storageService.rmUserProfile();
+  }
+
+  isBuyer() {
+    const profile = this.storageService.getUserProfile();
+    return profile ? profile.role === this.roles.BUYER : false;
+  }
+
+  isSeller() {
+    const profile = this.storageService.getUserProfile();
+    return profile ? profile.role === this.roles.SELLER : false;
+  }
+
+  signinAsBuyer(username: string, password: string) {
+    const data = {
+      username: username,
+      password: password,
+      role: 'buyer'
+    };
+    this.signin(data);
+  }
+
+  signinAsSeller(username: string, password: string) {
+    const data = {
+      username: username,
+      password: password,
+      role: 'seller'
+    };
+    this.signin(data);
+  }
+
+  private signin(data: any) {
+    this.http.post<any>(`${this.userBaseUrl}/auth/login`, data, this.httpOptions)
+    .subscribe(res => {
+      const user = JSON.parse(atob(res.token.split('.')[1]));
+      const profile = new UserProfile();
+      profile.id = user.jti;
+      profile.token = res.token;
+      profile.username = user.sub;
+      profile.role = user.role;
+      this.storageService.saveUserProfile(profile);
+    });
+  }
+
+  signout() {
+    this.http.post(`${this.userBaseUrl}/auth/logout`, null, this.httpOptions)
+      .subscribe(res => this.storageService.rmUserProfile());
   }
 
   signupAsBuyer(buyer: Buyer): Observable<Buyer> {
-    return this.http.post<Buyer>(this.buyersUrl, buyer, this.httpOptions)
-      .pipe(
-        tap((newBuyer: Buyer) => this.isBuyer = true)
-      );
+    return this.http.post<Buyer>(`${this.userBaseUrl}/signup/buyer`, buyer, this.httpOptions);
   }
 
   signupAsSeller(seller: Seller): Observable<Seller> {
-    return this.http.post<Seller>(this.sellersUrl, seller, this.httpOptions)
-      .pipe(
-        tap((newSeller: Seller) => this.isSeller = true)
-      );
+    return this.http.post<Seller>(`${this.userBaseUrl}/signup/buyer`, seller, this.httpOptions);
   }
 }

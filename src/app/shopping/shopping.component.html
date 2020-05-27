@@ -15,7 +15,7 @@
             <div class="align-self-center d-flex">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a *ngIf="authService.isBuyer; else signin" routerLink="/shopping" (click)="onClickSignOut()" class="nav-link text-dark">
+                        <a *ngIf="authService.isBuyer(); else signin" routerLink="/shopping" (click)="onClickSignOut()" class="nav-link text-dark">
                             Sign Out
                         </a>
                         <ng-template #signin>

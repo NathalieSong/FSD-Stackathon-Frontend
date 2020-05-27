@@ -21,7 +21,6 @@ export class CartComponent implements OnInit {
   discountPercentage = 0;
   isApplied = false;
   tax = 0;
-  totalItemPrice = 0;
   isCheckingOut = false;
   toastText = '';
   isError = false;
@@ -113,7 +112,7 @@ export class CartComponent implements OnInit {
 
   onChangeQuantity(id: string, quantity: number) {
     this.shopService.updateCartItemQuantity(id, quantity).subscribe(item => {
-      const index = this.cartItems.findIndex(cItem => cItem.id === item.id);
+      const index = this.cartItems.findIndex(cItem => cItem.id === id);
       this.cartItems[index].quantity = item.quantity;
     });
   }
@@ -128,14 +127,12 @@ export class CartComponent implements OnInit {
   }
 
   getTaxForSelectedItems(): Observable<number> {
-    this.totalItemPrice = 0;
-    for (const item of this.cartItems) {
-      if (this.itemSelectsForm.get(item.id).value) {
-        this.totalItemPrice += item.itemPrice * item.quantity;
-      }
-    }
-    this.totalItemPrice = this.totalItemPrice * (1 - this.discountPercentage);
-    return this.shopService.getTaxOfPrice(this.totalItemPrice).pipe(
+    const itemSelected = this.cartItems
+      .filter(item => this.itemSelectsForm.get(item.id).value)
+      .map(item => {
+        return { itemPrice: item.itemPrice, quantity: item.quantity, gst: item.gst };
+      });
+    return this.shopService.getTaxOfPrice(itemSelected).pipe(
       tap(tax => this.tax = tax)
     );
   }
@@ -160,14 +157,25 @@ export class CartComponent implements OnInit {
   }
 
   getTotalForSelectedItems(): number {
-    return this.totalItemPrice + this.tax;
+    let totalItemPrice = 0;
+    this.cartItems
+      .filter(item => this.itemSelectsForm.get(item.id).value)
+      .forEach(item => totalItemPrice += item.itemPrice * item.quantity);
+    return totalItemPrice + this.tax;
   }
 
   checkout() {
     this.isCheckingOut = true;
-    this.shopService.checkout(
-      this.cartItems.filter(item => this.itemSelectsForm.get(item.id).value)
-    ).subscribe(flag => {
+    const data = {
+      buyerId: this.shopService.getBuyerId(),
+      items: this.cartItems.filter(item => this.itemSelectsForm.get(item.id).value),
+      discount: {
+        code: this.discountCode,
+        percentage: this.discountPercentage
+      },
+      type: 'credit'
+    };
+    this.shopService.checkout(data).subscribe(flag => {
       this.isCheckingOut = !flag;
       if (flag) {
         this.router.navigate(['/shopping/checkout']);

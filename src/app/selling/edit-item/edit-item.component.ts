@@ -49,7 +49,6 @@ export class EditItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
-    this.getSubCategories();
     this.getItemById();
   }
 
@@ -94,8 +93,8 @@ export class EditItemComponent implements OnInit {
     this.categories$ = this.sellService.getCategories();
   }
 
-  getSubCategories() {
-    this.subCategories$ = this.sellService.getSubCategories();
+  onSelectCategory() {
+    this.subCategories$ = this.sellService.getSubCategories(this.editItemForm.get('categoryId').value);
   }
 
   onUploadPicture(url: string) {

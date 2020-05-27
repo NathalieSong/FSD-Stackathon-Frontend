@@ -16,10 +16,6 @@ const authRoutes: Routes = [
         component: SigninComponent
       },
       {
-        path: 'signin',
-        component: SigninComponent
-      },
-      {
         path: 'signup',
         component: SignupComponent
       },

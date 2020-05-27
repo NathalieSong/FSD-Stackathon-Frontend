@@ -3,4 +3,6 @@ export class Discount {
     code = '';
     percentage = 0;
     description = '';
+    startDate: Date;
+    endDate: Date;
 }

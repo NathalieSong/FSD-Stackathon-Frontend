@@ -86,12 +86,12 @@ export class SignupAsSellerComponent implements OnInit {
     const seller = new Seller();
     seller.username = this.username.value;
     seller.password = this.password.value;
-    seller.email = this.email.value;
+    seller.emailId = this.email.value;
     seller.address = this.address.value;
     seller.contactNumber = this.contactnumber.value;
     seller.companyName = this.companyname.value;
     seller.companyDescription = this.companydesc.value;
-    seller.GSTIN = Number(this.gstin.value);
+    seller.gstin = Number(this.gstin.value);
     return seller;
   }
 }

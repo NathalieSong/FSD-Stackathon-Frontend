@@ -2,7 +2,7 @@ export class Buyer {
     id = '';
     username = '';
     password = '';
-    email = '';
+    emailId = '';
     address = '';
     mobile = '';
     createdDate = new Date();

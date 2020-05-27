@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ShoppingService } from '../shopping.service';
 import * as _ from 'underscore';
+import { Cart } from 'src/app/general/models/cart';
 
 @Component({
   selector: 'app-item-detail',
@@ -17,6 +18,7 @@ export class ItemDetailComponent implements OnInit {
   isAddingToCart = false;
   isBuyingNow = false;
   isError = false;
+  quantity = 1;
 
   constructor(
     private router: Router,
@@ -47,8 +49,12 @@ export class ItemDetailComponent implements OnInit {
   addToCart(item: Item) {
     this.isAddingToCart = true;
     const that = this;
-    this.shopService.addToCart(item).subscribe({
-      next(id) { },
+    const cart = new Cart();
+    cart.buyerId = this.shopService.getBuyerId();
+    cart.quantity = this.quantity;
+    cart.itemId = item.id;
+    this.shopService.addToCart(cart).subscribe({
+      next(cartId) { },
       error(err) { that.isError = true; },
       complete() { that.isAddingToCart = false; }
     });
@@ -57,7 +63,11 @@ export class ItemDetailComponent implements OnInit {
   buyNow(item: Item) {
     this.isBuyingNow = true;
     const that = this;
-    this.shopService.addToCart(item).subscribe({
+    const cart = new Cart();
+    cart.buyerId = this.shopService.getBuyerId();
+    cart.quantity = this.quantity;
+    cart.itemId = item.id;
+    this.shopService.addToCart(cart).subscribe({
       next(id) { that.router.navigate(['/shopping/cart'], {queryParams: {cartId: id}}); },
       error(err) { that.isError = true; },
       complete() { that.isBuyingNow = false; }

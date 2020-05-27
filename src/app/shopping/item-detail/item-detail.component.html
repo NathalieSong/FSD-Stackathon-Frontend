@@ -37,8 +37,8 @@
             <div class="btn-bottom">
                 <div class="d-flex">
                     <label for="quantity" class="align-self-center mb-0 mr-3">Quantity</label>
-                    <select [disabled]="!item.stockNumber" id="quantity" class="form-control quantity-width align-self-center">
-                        <option *ngFor="let quantity of getListOfStock(item.stockNumber)">{{quantity}}</option>
+                    <select [disabled]="!item.stockNumber" id="quantity" [(ngModel)]="quantity" class="form-control quantity-width align-self-center">
+                        <option *ngFor="let quantityOpt of getListOfStock(item.stockNumber)">{{quantityOpt}}</option>
                     </select>
                     <div *ngIf="!item.stockNumber" class="text-dark ml-2 mb-0 align-self-center alert alert-danger">No stock</div>
                 </div>

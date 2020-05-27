@@ -46,15 +46,14 @@ export class AddItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
-    this.getSubCategories();
   }
 
   getCategories() {
     this.categories$ = this.sellService.getCategories();
   }
 
-  getSubCategories() {
-    this.subCategories$ = this.sellService.getSubCategories();
+  onSelectCategory() {
+    this.subCategories$ = this.sellService.getSubCategories(this.categoryId.value);
   }
 
   onUploadPicture(url: string) {

@@ -25,7 +25,7 @@ export class ShoppingComponent implements OnInit {
   }
 
   onClickSignOut() {
-    this.authService.isBuyer = false;
+    this.authService.signout();
   }
 
 }

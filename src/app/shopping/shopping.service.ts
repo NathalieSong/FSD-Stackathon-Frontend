@@ -8,15 +8,15 @@ import { ItemFilter } from '../general/models/item-filter';
 import * as _ from 'underscore';
 import { CartItem } from '../general/models/cart-item';
 import { Discount } from '../general/models/discount';
+import { Cart } from '../general/models/cart';
+import { LocalStorageService } from '../general/guards/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingService {
-  private itemsUrl = 'api/items';
-  private purchaseHistoryUrl = 'api/purchaseHistoryItems';
-  private cartItemsUrl = 'api/cartItems';
-  private discountsUrl = 'api/discounts';
+  private itemBaseUrl = '/api/item';
+  private orderBaseUrl = '/api/order';
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -25,22 +25,35 @@ export class ShoppingService {
   };
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private storageService: LocalStorageService
   ) { }
 
-  getTaxOfPrice(price: number): Observable<number> {
-    return of(price * 0.1);
+  getBuyerId(): string {
+    const profile = this.storageService.getUserProfile();
+    return profile ? profile.id : '';
   }
 
-  checkout(cartItems: CartItem[]): Observable<boolean> {
-    return of(true);
+  getTaxOfPrice(cartItems: any): Observable<number> {
+    return this.http.post<any>(`${this.orderBaseUrl}/financial/tax`, cartItems, this.httpOptions)
+      .pipe(
+        map(tax => tax.tax)
+      );
+  }
+
+  checkout(data: any): Observable<boolean> {
+    return this.http.post<any>(`${this.orderBaseUrl}/financial/checkout`, data, this.httpOptions)
+      .pipe(
+        map(result => true),
+        catchError(this.handleError<boolean>(false))
+      );
   }
 
   getDiscountByCode(code: string): Observable<Discount> {
     if (!code.trim()) {
       return of();
     }
-    return this.http.get<Discount[]>(`${this.discountsUrl}/?code=^${code}$`)
+    return this.http.get<Discount[]>(`${this.orderBaseUrl}/discount/code?code=${code}`)
       .pipe(
         map((discounts: Discount[]) => discounts[0]),
         catchError(this.handleError<Discount>())
@@ -48,7 +61,7 @@ export class ShoppingService {
   }
 
   getPurchaseHistoryItems(): Observable<PurchaseHistoryItem[]> {
-    return this.http.get<PurchaseHistoryItem[]>(`${this.purchaseHistoryUrl}`)
+    return this.http.get<PurchaseHistoryItem[]>(`${this.orderBaseUrl}/purchaseHistory/byBuyer?buyerId=${this.getBuyerId()}`)
     .pipe(
       map(phItems => _.sortBy(phItems, 'createdDate')),
       catchError(this.handleError<PurchaseHistoryItem[]>([]))
@@ -56,59 +69,61 @@ export class ShoppingService {
   }
 
   getCartItems(): Observable<CartItem[]> {
-    return this.http.get<CartItem[]>(`${this.cartItemsUrl}`)
+    return this.http.get<CartItem[]>(`${this.itemBaseUrl}/cart/byBuyer?buyerId=${this.getBuyerId()}`)
     .pipe(
       map(cItems => _.sortBy(cItems, 'createdDate')),
-      catchError(this.handleError<PurchaseHistoryItem[]>([]))
+      catchError(this.handleError<CartItem[]>([]))
     );
   }
 
-  addToCart(item: Item): Observable<string> {
-    return this.http.get<Item[]>(`${this.itemsUrl}/?id=^${item.id}$`)
+  addToCart(cart: Cart): Observable<string> {
+    return this.http.post<Cart>(`${this.itemBaseUrl}/cart`, cart, this.httpOptions)
       .pipe(
-        map(newCartItem => newCartItem[0].id)
+        map(newCart => newCart.id)
       );
   }
 
-  deleteCartItemByIds(ids: string[]): Observable<CartItem[]> {
-    return of([]);
+  deleteCartItemByIds(ids: string[]): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        cartIds: ids,
+        buyerId: this.getBuyerId()
+      }
+    };
+    return this.http.delete<any>(`${this.itemBaseUrl}/cart`, httpOptions);
   }
 
-  updateCartItemQuantity(id: string, quantity: number): Observable<CartItem> {
-    return this.getCartItems().pipe(
-      map((items: CartItem[]) => {
-        const cItem = items.find(item => item.id === id);
-        cItem.quantity = quantity;
-        return cItem;
-      })
-    );
+  updateCartItemQuantity(id: string, quantity: number): Observable<any> {
+    return this.http.put<any>(`${this.itemBaseUrl}/cart/quantity`,
+      {cartId: id, quantity: quantity}, this.httpOptions);
   }
 
   getItems(): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.itemsUrl}`)
+    return this.http.get<Item[]>(`${this.itemBaseUrl}/emartItem/getAll`)
       .pipe(
         catchError(this.handleError<Item[]>([]))
       );
   }
 
   getItemById(id: string): Observable<Item> {
-    return this.getItems().pipe(
-      map((items: Item[]) => items.find(item => item.id === id))
-    );
+    return this.http.get<Item>(`${this.itemBaseUrl}/emartItem/byId?itemId=${id}`);
   }
 
   getItemsByText(text: string): Observable<Item[]> {
     if (!text.trim()) {
       return this.getItems();
     }
-    return this.http.get<Item[]>(`${this.itemsUrl}/?name=${text}`)
+    return this.http.get<Item[]>(`${this.itemBaseUrl}/emartItem/byText?text=${text}`)
       .pipe(
         catchError(this.handleError<Item[]>([]))
       );
   }
 
   getItemsByFilter(filter: ItemFilter): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.itemsUrl}/?manufacturer=${filter.manufacturer}`)
+    return this.http.post<Item[]>(`${this.itemBaseUrl}/byFilter`, filter, this.httpOptions)
       .pipe(
         catchError(this.handleError<Item[]>([]))
       );
