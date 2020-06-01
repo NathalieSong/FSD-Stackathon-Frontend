@@ -15,8 +15,8 @@ import { LocalStorageService } from '../general/guards/local-storage.service';
   providedIn: 'root'
 })
 export class ShoppingService {
-  private itemBaseUrl = '/api/item';
-  private orderBaseUrl = '/api/order';
+  private itemBaseUrl = '/item';
+  private orderBaseUrl = '/order';
 
   private httpOptions = {
     headers: new HttpHeaders({

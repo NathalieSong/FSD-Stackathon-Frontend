@@ -16,8 +16,8 @@ import { LocalStorageService } from '../general/guards/local-storage.service';
 export class SellingService {
   public stockPattern = '[0-9]*';
   public pricePattern = '[0-9\.]*';
-  private itemBaseUrl = '/api/item';
-  private orderBaseUrl = '/api/order';
+  private itemBaseUrl = '/item';
+  private orderBaseUrl = '/order';
 
   private httpOptions = {
     headers: new HttpHeaders({

@@ -15,7 +15,7 @@ import { UserProfile } from '../general/models/user-profile';
 export class AuthService {
   roles = UserRole;
 
-  private userBaseUrl = 'api/user';
+  private userBaseUrl = '/user';
 
   private httpOptions = {
     headers: new HttpHeaders({
