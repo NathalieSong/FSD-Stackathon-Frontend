@@ -61,13 +61,9 @@ export class SigninComponent implements OnInit {
     this.loading = true;
     this.authService.signinAsBuyer(this.username.value, this.password.value)
     .subscribe({
-      next(buyers) {
-        if (buyers.length) {
-          that.errorSignin = false;
-          that.router.navigate(['/shopping']);
-        } else {
-          that.errorSignin = true;
-        }
+      next(buyerProfile) {
+        that.errorSignin = false;
+        that.router.navigate(['/shopping']);
       },
       error(err) { that.errorSignin = true; },
       complete() { that.loading = false; }
@@ -79,13 +75,9 @@ export class SigninComponent implements OnInit {
     this.loading = true;
     this.authService.signinAsSeller(this.username.value, this.password.value)
     .subscribe({
-      next(sellers) {
-        if (sellers.length) {
-          that.errorSignin = false;
-          that.router.navigate(['/selling']);
-        } else {
-          that.errorSignin = true;
-        }
+      next(sellerProfile) {
+        that.errorSignin = false;
+        that.router.navigate(['/selling']);
       },
       error(err) { that.errorSignin = true; },
       complete() { that.loading = false; }

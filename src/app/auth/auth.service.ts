@@ -3,7 +3,7 @@ import { Buyer } from '../general/models/buyer';
 import { Seller } from '../general/models/seller';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../general/guards/local-storage.service';
 import { UserRole } from '../general/enums/user-role.enum';
@@ -48,35 +48,38 @@ export class AuthService {
     return profile ? profile.role === this.roles.SELLER : false;
   }
 
-  signinAsBuyer(username: string, password: string) {
+  signinAsBuyer(username: string, password: string): Observable<UserProfile> {
     const data = {
       username: username,
       password: password,
       role: 'buyer'
     };
-    this.signin(data);
+    return this.signin(data);
   }
 
-  signinAsSeller(username: string, password: string) {
+  signinAsSeller(username: string, password: string): Observable<UserProfile> {
     const data = {
       username: username,
       password: password,
       role: 'seller'
     };
-    this.signin(data);
+    return this.signin(data);
   }
 
-  private signin(data: any) {
-    this.http.post<any>(`${this.userBaseUrl}/auth/login`, data, this.httpOptions)
-    .subscribe(res => {
-      const user = JSON.parse(atob(res.token.split('.')[1]));
-      const profile = new UserProfile();
-      profile.id = user.jti;
-      profile.token = res.token;
-      profile.username = user.sub;
-      profile.role = user.role;
-      this.storageService.saveUserProfile(profile);
-    });
+  private signin(data: any): Observable<UserProfile> {
+    return this.http.post<any>(`${this.userBaseUrl}/auth/login`, data, this.httpOptions)
+      .pipe(
+        map(res => {
+          const user = JSON.parse(atob(res.token.split('.')[1]));
+          const profile = new UserProfile();
+          profile.id = user.jti;
+          profile.token = res.token;
+          profile.username = user.sub;
+          profile.role = user.role;
+          this.storageService.saveUserProfile(profile);
+          return res;
+        })
+      );
   }
 
   signout() {
